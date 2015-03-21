@@ -1,0 +1,44 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"  
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+           http://www.springframework.org/schema/security  
+           http://www.springframework.org/schema/security/spring-security.xsd">  
+	<http>
+		<intercept-url pattern="/login.jsp"          	access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/upload/**"          	access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/WEB-INF/static/**"  	access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/WEB-INF/exm/**"  	access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/admin/**"           	access="ROLE_ADMIN"/>
+		<intercept-url pattern="/user/**"           	access="ROLE_USER"/> 
+		
+		<!-- <access-denied-handler error-page="/403.jsp"></access-denied-handler> -->
+		
+		<session-management invalid-session-url="/login.jsp">
+			<concurrency-control error-if-maximum-exceeded="false" max-sessions="1"/>
+		</session-management>	
+		<remember-me user-service-ref="UserDetailService"/>
+		
+		<form-login login-page="/login.jsp"  
+            authentication-failure-url="/login.jsp"  
+            authentication-success-handler-ref="myAuthenticationHandlers" />  
+        <logout logout-success-url="/login.jsp"/> 
+	</http>
+	
+	<!-- <beans:bean id = "myAuthenticationHandler" class= "zjgsu.jk.utils.MyAuthenticationHandlers"/> -->
+	<!-- 用户的密码加密或解密 -->
+	 <beans:bean id="passwordEncoder"
+	  class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+	
+    
+    <authentication-manager erase-credentials="false">  
+        <authentication-provider user-service-ref="UserDetailService">  
+	        <password-encoder ref="passwordEncoder" />
+        </authentication-provider>  
+    </authentication-manager> 
+          
+   <beans:bean id="UserDetailService" class="zjgsu.jk.service.AccountService" /> 
+	
+	
+
+</beans:beans>

@@ -1,0 +1,10 @@
+body{
+	background-image: url('../images/bg1.jpg');
+	background-size: 100%;
+}
+.am-nav a{
+	color: #8BD9FA;
+}
+footer{
+	color: #8BD9FA;
+}
