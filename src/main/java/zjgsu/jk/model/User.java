@@ -11,7 +11,7 @@ import javax.persistence.Entity;
  *
  */
 @Entity
-public class User extends AuditableModel implements Serializable{
+public class User extends AuditableModel{
 
 	/**
 	 * 
