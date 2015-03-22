@@ -53,10 +53,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<form class="am-form" action="<%=basePath%>j_spring_security_check" method="post">
 		<label for="email">用户名：</label>
-		<input type="text" name="j_username" value="<%=session.getAttribute("j_username")%>" />
+		<input type="text" name="j_username"  />
 		<br>
 		<label for="password">密码：</label>
-		<input type="password" name="j_password" value="<%=session.getAttribute("j_password")%>"/>
+		<input type="password" name="j_password" />
 		<br>
 		<label for="remember-me">
 		<input type='checkbox' name='_spring_security_remember_me'/>记住我
