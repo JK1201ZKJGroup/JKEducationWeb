@@ -27,7 +27,7 @@
               课程名称:
             </div>
            <div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-              <sf:input type="" class="am-input-sm" path="name"/>
+              <sf:input type="text" class="am-input-sm" path="name"/>
             </div>
           </div>
           
@@ -36,7 +36,7 @@
               作者:
             </div>
              <div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-              <input type="text" class="am-input-sm" name="avater"/>
+              <sf:input type="text" class="am-input-sm" path="avater"/>
             </div>
           </div>
 
