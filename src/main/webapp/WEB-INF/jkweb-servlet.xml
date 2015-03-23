@@ -18,6 +18,8 @@
   	<!-- 指定静态资源 -->
 	<mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 	<mvc:resources mapping="../upload/**" location="../upload" />
-    <!-- 支持上传文件 -->    
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>  
+
+	<!-- 完成文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
 </beans>  
