@@ -21,6 +21,18 @@ public class Classification extends AuditableModel {
 	@ManyToOne
 	private Classification parent;//父类
 	
+	
+	
+	public Classification() {
+		super();
+	}
+	
+	public Classification(String name, Classification parent) {
+		super();
+		this.name = name;
+		this.parent = parent;
+	}
+	
 	public String getName() {
 		return name;
 	}

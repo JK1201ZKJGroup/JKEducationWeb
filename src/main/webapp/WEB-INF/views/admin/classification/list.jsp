@@ -19,7 +19,7 @@
       <div class="am-u-sm-12 am-u-md-6">
         <div class="am-btn-toolbar">
           <div class="am-btn-group am-btn-group-xs">
-            <a href="admin/course/add" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
+            <a href="admin/classification/add?parentid=${model.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span>添加
          	</a>
             <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
@@ -58,31 +58,29 @@
               <tr>
                 <th class="table-check"><input type="checkbox" /></th>
                 <th class="table-id">ID</th>
-                <th class="table-date am-hide-sm-only">课程名称</th>
-                <th class="table-date am-hide-sm-only">作者</th>  
-                <th class="table-author am-hide-sm-only">是否免费</th>
-                <th class="table-date am-hide-sm-only">观看价格</th>     
-                <th class="table-date am-hide-sm-only">点击量</th>        
+                <th class="table-date am-hide-sm-only">父分类名称</th>
+                <th class="table-date am-hide-sm-only">查看子分类</th>        
                 <th class="table-set">操作</th>
               </tr>
           </thead>
            <tbody>
-           <c:forEach items="${list.content}" var="course">
+           <c:forEach items="${list.content}" var="classification">
             <tr>
               <td><input type="checkbox" /></td>
-			  <td>${course.id }</td>
-		      <td>${course.name}</td>
-		      <td class="am-hide-sm-only">${course.avater}</td>
-		      <td class="am-hide-sm-only">${course.freeflag}</td>
-		      <td class="am-hide-sm-only">${course.price}</td>
-		      <td class="am-hide-sm-only">${course.view}</td>
+			  <td>${classification.id }</td>
+		      <td>${classification.name}</td>
+		      <td>
+		       <a href="admin/classification/${classification.id}/show" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
+         		<span class="am-icon-pencil-square-o"></span> 查看子分类
+         	   </a>
+         	   </td>
 		<td>
 		 <div class="am-btn-toolbar">
          	<div class="am-btn-group am-btn-group-xs">
-         <a href="admin/course/${course.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
+         <a href="admin/classification/${classification.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span> 查看并修改
          </a>
-         <a href="admin/course/${course.id}/delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+         <a href="admin/classification/${classification.id}/delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 删除
          </a>
 			</div>
@@ -98,7 +96,7 @@
  <div class="am-cf am-u-sm-12">
   <span class="total-page">${list.getNumber()+1} / ${list.getTotalPages()}&nbsp;&nbsp;总共${list.getTotalElements()}条</span>
   <div class="am-fr">
-  <c:url var="base_url" value="admin/course/courses"/>
+  <c:url var="base_url" value="admin/classification/classifications"/>
     <ul class="am-pagination">
       <li><a href="${base_url}?page=0">首页</a></li>
       	<c:if test="${list.hasPrevious()}">

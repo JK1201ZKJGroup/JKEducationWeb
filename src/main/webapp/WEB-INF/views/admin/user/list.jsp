@@ -117,8 +117,11 @@
 		<c:if test = "${3<list.getTotalPages()&&(list.getNumber()+3)<list.getTotalPages()}">
 				<c:set var = "CenterLast" value = "${list.getNumber()+3}"/>
 		</c:if>
-		<c:if test = "${list.getNumber()+3>=list.getTotalPages()}">
+		<c:if test = "${list.getNumber()+3>=list.getTotalPages()&&list.getTotalPages()!=0}">
 				<c:set var = "CenterLast" value = "${list.getTotalPages()-1}"/>
+		</c:if>
+		<c:if test = "${list.getTotalPages() == 0}">
+				<c:set var = "CenterLast" value = "0"/>
 		</c:if>
 		<c:forEach var="value" begin="${CenterFirst}"
 				end="${CenterLast}" step="1">
