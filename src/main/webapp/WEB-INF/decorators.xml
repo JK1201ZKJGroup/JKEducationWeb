@@ -27,5 +27,10 @@
 	 <decorator name="admin" page="admin.jsp">
 		<pattern>/admin/*</pattern>
 	</decorator> 
-		 
+	<decorator name="user" page="user.jsp">
+		<pattern>/user/*</pattern>
+	</decorator> 
+	<decorator name="main" page="main.jsp">
+		<pattern>/*</pattern>
+	</decorator> 	 
 </decorators>
