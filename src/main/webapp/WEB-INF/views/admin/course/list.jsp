@@ -105,48 +105,49 @@
 				</div>
 
 				<div class="am-cf am-u-sm-12">
-					<span class="total-page">${list.getNumber()+1} /
-						${list.getTotalPages()}&nbsp;&nbsp;总共${list.getTotalElements()}条</span>
-					<div class="am-fr">
-						<c:url var="base_url" value="admin/user/users" />
-						<ul class="am-pagination">
-							<li><a href="${base_url}?page=0">首页</a></li>
-							<c:if test="${list.hasPrevious()}">
-								<li><a href="${base_url}?page=${list.getNumber()-1}"> <c:out
-											value="上一页"></c:out>
-								</a></li>
-							</c:if>
-							<c:if test="${list.getNumber()>2}">
-								<c:set var="CenterFirst" value="${list.getNumber()-3}" />
-							</c:if>
-							<c:if test="${list.getNumber()<=2}">
-								<c:set var="CenterFirst" value="0" />
-							</c:if>
-							<c:if
-								test="${3<list.getTotalPages()&&(list.getNumber()+3)<list.getTotalPages()}">
-								<c:set var="CenterLast" value="${list.getNumber()+3}" />
-							</c:if>
-							<c:if test="${list.getNumber()+3>=list.getTotalPages()}">
-								<c:set var="CenterLast" value="${list.getTotalPages()-1}" />
-							</c:if>
-							<c:forEach var="value" begin="${CenterFirst}" end="${CenterLast}"
-								step="1">
-								<c:if test="${list.getNumber()==value}">
-									<li class="am-active"><a href="${base_url}?page=${value}">${value+1}</a></li>
-								</c:if>
-								<c:if test="${list.getNumber()!=value}">
-									<li><a href="${base_url}?page=${value}">${value+1}</a></li>
-								</c:if>
-							</c:forEach>
-							<c:if test="${list.hasNext()}">
-								<li><a href="${base_url}?page=${list.getNumber()+1}"> <c:out
-											value="下一页" />
-								</a></li>
-							</c:if>
-							<li><a href="${base_url}?page=${list.getTotalPages()-1}">末页</a></li>
-						</ul>
-					</div>
-				</div>
+  <span class="total-page">${list.getNumber()+1} / ${list.getTotalPages()}&nbsp;&nbsp;总共${list.getTotalElements()}条</span>
+  <div class="am-fr">
+  <c:url var="base_url" value="/admin/course/courses"/>
+    <ul class="am-pagination">
+      <li><a href="${base_url}?page=0">首页</a></li>
+      	<c:if test="${list.hasPrevious()}">
+				<li><a href="${base_url}?page=${list.getNumber()-1}"> 
+				<c:out value="上一页"></c:out>
+				</a></li>
+	 	</c:if>
+	 	<c:if test = "${list.getNumber()>2}">
+				<c:set var = "CenterFirst" value = "${list.getNumber()-3}"/>
+		</c:if>
+		<c:if test = "${list.getNumber()<=2}">
+				<c:set var = "CenterFirst" value = "0"/>
+		</c:if>
+		<c:if test = "${3<list.getTotalPages()&&(list.getNumber()+3)<list.getTotalPages()}">
+				<c:set var = "CenterLast" value = "${list.getNumber()+3}"/>
+		</c:if>
+		<c:if test = "${list.getNumber()+3>=list.getTotalPages()&&list.getTotalPages()!=0}">
+				<c:set var = "CenterLast" value = "${list.getTotalPages()-1}"/>
+		</c:if>
+		<c:if test = "${list.getTotalPages() == 0}">
+				<c:set var = "CenterLast" value = "0"/>
+		</c:if>
+		<c:forEach var="value" begin="${CenterFirst}"
+				end="${CenterLast}" step="1">
+				<c:if test="${list.getNumber()==value}">
+			<li class="am-active"><a href="${base_url}?page=${value}">${value+1}</a></li>
+				</c:if>
+				<c:if test="${list.getNumber()!=value}">
+			<li><a href="${base_url}?page=${value}">${value+1}</a></li>
+				</c:if>
+			</c:forEach>
+			<c:if test="${list.hasNext()}">
+				<li><a href="${base_url}?page=${list.getNumber()+1}"> 
+				<c:out value="下一页"/>
+				</a></li>
+			</c:if>
+      <li><a href="${base_url}?page=${list.getTotalPages()-1}">末页</a></li>
+    </ul>
+  </div>
+  </div>
 			</div>
 		</div>
 	</div>

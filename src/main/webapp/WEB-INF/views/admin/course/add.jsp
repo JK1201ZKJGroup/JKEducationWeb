@@ -41,10 +41,12 @@
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">是否免费:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="freeflag" />
+									<select name="freeflag">
+										<option value="1" selected>免费</option>
+										<option value="0">收费</option>
+									</select>
 								</div>
 							</div>
-
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">观看价格:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
