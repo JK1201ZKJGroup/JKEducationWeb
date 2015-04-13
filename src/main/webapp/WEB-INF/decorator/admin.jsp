@@ -74,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a href="admin/user/users" class="am-cf"><span class="am-icon-th"></span>用户管理</a></li>
             <li><a href="admin/course/courses"><span class="am-icon-th"></span> 课程管理</a></li>
             <li><a href="admin/classification/classifications"><span class="am-icon-th"></span> 分类管理</a></li>
+            <li><a href="admin/courseclas/courseclass"><span class="am-icon-th"></span> 课程分类管理</a></li>
           </ul>
         </li>
         <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>

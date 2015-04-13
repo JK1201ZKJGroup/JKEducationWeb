@@ -47,6 +47,7 @@
 									</select>
 								</div>
 							</div>
+
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">观看价格:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
@@ -55,11 +56,40 @@
 							</div>
 
 							<div class="am-g am-margin-top">
+								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程时长:</div>
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
+									<sf:input type="text" class="am-input-sm" path="duration" />
+								</div>
+							</div>
+			
+										<div class="am-g am-margin-top">
+								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程难度:</div>
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
+									<sf:input type="text" class="am-input-sm" path="level" />
+								</div>
+							</div>
+											
+							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">点击量:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
 									<sf:input type="text" class="am-input-sm" path="view" />
 								</div>
 							</div>
+							
+							<div class="am-g am-margin-top">
+								<div class="am-u-sm-4 am-u-md-2 am-text-right">学习人数:</div>
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
+									<sf:input type="text" class="am-input-sm" path="studentnum" />
+								</div>
+							</div>		
+
+							<div class="am-g am-margin-top">
+								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程简介:</div>
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
+									<sf:input type="text" class="am-input-sm" path="introduction" />
+								</div>
+							</div>							
+							
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">封面图片:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
@@ -80,7 +110,7 @@
 					</div>
 					<div class="am-margin">
 						<button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
-						<button type="button" class="am-btn am-btn-primary am-btn-xs">放弃保存</button>
+						<button type="button" class="am-btn am-btn-primary am-btn-xs" onclick="javascript:window.history.go(-1)">放弃保存</button>
 					</div>
 					
 				</sf:form>

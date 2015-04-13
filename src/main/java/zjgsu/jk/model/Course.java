@@ -31,7 +31,10 @@ public class Course extends AuditableModel {
 	@URL
 	private String avatar; //上传视频时附带的首页图像
 	private Integer view;//浏览次数
-	
+	private String introduction; //课程简介
+	private Integer duration;  //课程时长
+	private Integer studentnum; //在线学习人数
+	private String level; //课程难度
 	
 	public String getName() {
 		return name;
@@ -76,5 +79,28 @@ public class Course extends AuditableModel {
 		this.avater = avater;
 	}
 	
-
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	public Integer getDuration() {
+		return duration;
+	}
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+	public Integer getStudentnum() {
+		return studentnum;
+	}
+	public void setStudentnum(Integer studentnum) {
+		this.studentnum = studentnum;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
 }
