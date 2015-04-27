@@ -3,6 +3,9 @@
  */
 package zjgsu.jk.controller.admin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import zjgsu.jk.dao.CourseClasRepository;
+import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.model.Classification;
 import zjgsu.jk.model.CourseClas;
 import zjgsu.jk.service.AbstractService;
@@ -24,6 +28,7 @@ import zjgsu.jk.service.AbstractService;
  * @author zby
  *
  */
+
 @Controller
 @RequestMapping("/admin/courseclas")
 public class CourseClasController extends AbstractService {
@@ -76,5 +81,33 @@ public class CourseClasController extends AbstractService {
 		courseclas.getClassification().setName(arg0.getParameter("classificationname"));
 		return "redirect:/admin/courseclas/courseclass";
 	}
+	@RequestMapping(value = "/{id}/modify",method = RequestMethod.GET)
+	public String modify(Model model,@PathVariable Long id){
+		CourseClas courseclas = courseclasRepository.findOne(id);
+		model.addAttribute("course", courseclas.getCourse());
+		model.addAttribute("classification", courseclas.getClassification());
+		model.addAttribute(courseclas);
+		return "/admin/courseclas/modify";
+	}
 
+	@Transactional
+	@RequestMapping(value = "/{id}/modify",method = RequestMethod.POST)
+	public String modify(@PathVariable Long id,HttpServletRequest arg0)  {
+		CourseClas courseclas = courseclasRepository.findOne(id);
+		courseclas.getClassification().setName(arg0.getParameter("classificationname"));
+		return "redirect:/admin/courseclas/courseclass";
+	}
+	
+//	@GET
+//	@Template(name = "/bizs/biz_connect")
+//	@Path("/{id}/connect")
+//	@Produces(MediaType.TEXT_HTML)
+//	public Map<String, Object> connect(@PathParam("id") Long id){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("page", ClassificationRepository
+//				.findByParentIsNotNull(new PageRequest(0, 10)));
+//		map.put("model", bizRepository.findOne(id));
+//		map.put("modelext",modelext);
+//		return map;
+//	}
 }

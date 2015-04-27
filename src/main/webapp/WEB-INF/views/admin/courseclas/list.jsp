@@ -70,6 +70,7 @@
               <td>${courseclas.id }</td>
 			  <td>${courseclas.course.name }</td>
 			  <td>${courseclas.classification.name}</td>
+			  <td><a href="admin/courseclas/${courseclas.id}/modify">分类修改</a></td>
 		<td>
 		 <div class="am-btn-toolbar">
          	<div class="am-btn-group am-btn-group-xs">
