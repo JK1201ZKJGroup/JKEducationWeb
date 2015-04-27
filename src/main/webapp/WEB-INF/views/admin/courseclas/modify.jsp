@@ -29,14 +29,14 @@
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程名称:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<input type="text" class="am-input-sm" name="courseclas.course.name" disabled="disabled" value="${course.name}" />
+									<input type="text" class="am-input-sm" name="courseclas.name()" disabled="disabled" value="${course.name}" />
 								</div>
 							</div>
 
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">分类名称:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<input type="text" class="am-input-sm" name="classificationname" value="${classification.name}" />
+									<input type="text" class="am-input-sm" name="courseclas.name" value="${classification.name}" />
 								</div>
 							</div>
 
@@ -44,18 +44,32 @@
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right"></div>
 							</div>
-
-						</div>
-					</div>
-					<div class="am-margin">
+	    <c:forEach items="${page2.content}" var="courseclas">
+            <tr>
+              <td><input type="checkbox" /></td>
+              <td>「${courseclas.name}」————</td>
+              <td>「${courseclas.name}」</td>
+			  <td><a href="" class="btn btn-primary">关联分类</a></td>
+			</tr><br>
+		</c:forEach>							
+	    <c:forEach items="${page1.content}" var="courseclas">
+            <tr>
+              <td><input type="checkbox" /></td>
+              <td>「${courseclas.parent.name}」————</td>
+              <td>「${courseclas.name}」</td>
+			  <td><a href="" class="btn btn-primary">关联分类</a></td>
+			</tr><br>
+		</c:forEach>
+		</div>
+	</div>
+		<div class="am-margin">
 						<button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
 						<button type="button" class="am-btn am-btn-primary am-btn-xs" onclick="javascript:window.history.go(-1)">放弃保存</button>
 					</div>
 				</sf:form>
 			</div>
-
 		</div>
 	</div>
-
+       
 </body>
 </html>

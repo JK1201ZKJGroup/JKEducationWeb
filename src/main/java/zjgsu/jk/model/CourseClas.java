@@ -24,6 +24,14 @@ public class CourseClas extends AuditableModel {
 	@ManyToOne
 	@JoinColumn(name = "class_id")
 	private Classification classification;
+	public CourseClas(){
+		this.course = null;
+		this.classification = null;
+	}
+	public CourseClas(Course course,Classification classification){
+		this.course = course;
+		this.classification = classification;
+	}
 	public Course getCourse() {
 		return course;
 	}

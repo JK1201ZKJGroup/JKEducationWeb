@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import zjgsu.jk.dao.CourseClasRepository;
+import zjgsu.jk.dao.CourseRepository;
 import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.model.Classification;
+import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
 import zjgsu.jk.service.AbstractService;
 
@@ -35,7 +37,10 @@ public class CourseClasController extends AbstractService {
 	
 	@Autowired
 	private CourseClasRepository courseclasRepository;
-	
+	@Autowired
+	private ClassificationRepository classificationRepository;
+	@Autowired
+	private CourseRepository courseRepository;
 	@RequestMapping(value = "/courseclass",method = RequestMethod.GET)
 	public String list(@RequestParam(required = false) Integer page, Model model){
 		if (page == null)
@@ -86,7 +91,9 @@ public class CourseClasController extends AbstractService {
 		CourseClas courseclas = courseclasRepository.findOne(id);
 		model.addAttribute("course", courseclas.getCourse());
 		model.addAttribute("classification", courseclas.getClassification());
-		model.addAttribute(courseclas);
+		model.addAttribute("courseclas",courseclas);
+		model.addAttribute("page1", classificationRepository.findByParentIsNotNull(new PageRequest(0, 10)));
+		model.addAttribute("page2", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
 		return "/admin/courseclas/modify";
 	}
 
@@ -104,10 +111,21 @@ public class CourseClasController extends AbstractService {
 //	@Produces(MediaType.TEXT_HTML)
 //	public Map<String, Object> connect(@PathParam("id") Long id){
 //		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("page", ClassificationRepository
+//		map.put("page", classificationRepository
 //				.findByParentIsNotNull(new PageRequest(0, 10)));
 //		map.put("model", bizRepository.findOne(id));
 //		map.put("modelext",modelext);
 //		return map;
 //	}
+
+	@Transactional
+	@RequestMapping(value = "/{id}/connected",method = RequestMethod.GET)
+	public void connected(@PathVariable Long id, Long course1){
+		Course course = this.courseRepository.findOne(id);
+		Classification classification = this.classificationRepository.findOne(id);
+		if(courseclasRepository.findByCourseAndClassification(course, classification.getParent())==null)
+			this.courseclasRepository.save(new CourseClas(course,classification.getParent()));
+		if(courseclasRepository.findByCourseAndClassification(course, classification)==null)
+			this.courseclasRepository.save(new CourseClas(course,classification));
+	}
 }

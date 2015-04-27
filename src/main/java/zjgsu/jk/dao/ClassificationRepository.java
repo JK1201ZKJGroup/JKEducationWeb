@@ -22,5 +22,7 @@ public interface ClassificationRepository extends JpaRepository<Classification, 
 	
 	public Page<Classification> findByParentIsNull(Pageable pageable);
 	
+	public Page<Classification> findByParentIsNotNull(Pageable pageable);
+	
 	public List<Classification> findByParent(Classification classification);
 }
