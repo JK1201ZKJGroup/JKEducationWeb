@@ -11,6 +11,7 @@
 		<intercept-url pattern="/WEB-INF/exm/**"  	access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<intercept-url pattern="/admin/**"           	access="ROLE_ADMIN"/>
 		<intercept-url pattern="/user/**"           	access="ROLE_USER"/> 
+		<intercept-url pattern="/api/**"                access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		
 		<!-- <access-denied-handler error-page="/403.jsp"></access-denied-handler> -->
 		
