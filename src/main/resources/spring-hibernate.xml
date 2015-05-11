@@ -10,7 +10,7 @@
             <!--配置数据库用户名 -->  
             <property name="hibernate.connection.username" value="root" />  
             <!--配置数据库密码 -->  
-            <property name="hibernate.connection.password" value="123456" />  
+            <property name="hibernate.connection.password" value="123456789" />  
             <!--配置数据库url -->  
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/jkweb?useUnicode=true&amp;characterEncoding=UTF-8" />
             <!--设置外连接抓取树的最大深度 -->  

@@ -74,7 +74,8 @@
 		<td>
 		 <div class="am-btn-toolbar">
          	<div class="am-btn-group am-btn-group-xs">
-         <a href="admin/courseclas/${courseclas.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
+<%--          <a href="admin/courseclas/${courseclas.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" > --%>
+         <a class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span> 查看并修改
          </a>
          <a href="admin/courseclas/${courseclas.id}/delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">

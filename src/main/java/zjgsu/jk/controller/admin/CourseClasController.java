@@ -92,8 +92,12 @@ public class CourseClasController extends AbstractService {
 		model.addAttribute("course", courseclas.getCourse());
 		model.addAttribute("classification", courseclas.getClassification());
 		model.addAttribute("courseclas",courseclas);
+		model.addAttribute("id",id);
 		model.addAttribute("page1", classificationRepository.findByParentIsNotNull(new PageRequest(0, 10)));
 		model.addAttribute("page2", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
+		model.addAttribute("list", courseclasRepository.findByCourse(courseclas.getCourse()));
+		//System.out.println(courseclasRepository.findByCourse(courseclas.getCourse()));
+		//model.addAttribute("page4", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
 		return "/admin/courseclas/modify";
 	}
 
@@ -118,14 +122,42 @@ public class CourseClasController extends AbstractService {
 //		return map;
 //	}
 
-	@Transactional
+//	@Transactional
+//	@RequestMapping(value = "/{id}/connected",method = RequestMethod.GET)
+//	public void connected(@PathVariable Long id, Long course1){
+//		Course course = this.courseRepository.findOne(id);
+//		Classification classification = this.classificationRepository.findOne(id);
+//		if(courseclasRepository.findByCourseAndClassification(course, classification.getParent())==null)
+//			this.courseclasRepository.save(new CourseClas(course,classification.getParent()));
+//		if(courseclasRepository.findByCourseAndClassification(course, classification)==null)
+//			this.courseclasRepository.save(new CourseClas(course,classification));
+//	}
+
 	@RequestMapping(value = "/{id}/connected",method = RequestMethod.GET)
-	public void connected(@PathVariable Long id, Long course1){
-		Course course = this.courseRepository.findOne(id);
-		Classification classification = this.classificationRepository.findOne(id);
-		if(courseclasRepository.findByCourseAndClassification(course, classification.getParent())==null)
+	public String connected(Model model,@PathVariable Long id){
+		CourseClas courseclas = courseclasRepository.findOne(id);
+		model.addAttribute("course", courseclas.getCourse());
+		model.addAttribute("classification", courseclas.getClassification());
+		model.addAttribute(courseclas);
+		return "/admin/courseclas/update";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/{id}/connected",method = RequestMethod.POST)
+	public String connected(@PathVariable Long id,HttpServletRequest arg0)  {
+		CourseClas courseclas = courseclasRepository.findOne(id);
+		Course course = courseRepository.findOne(courseclas.getCourse().getId());
+		Classification classification = classificationRepository.findByName(arg0.getParameter("classificationname"));
+		System.out.println(classification.getParent().getName());
+		System.out.println(course.getName());
+		System.out.println(courseclasRepository.findByCourseAndClassification(course, classification.getParent()));
+		if(courseclasRepository.findByCourseAndClassification(course, classification.getParent()).isEmpty())
+		{
 			this.courseclasRepository.save(new CourseClas(course,classification.getParent()));
-		if(courseclasRepository.findByCourseAndClassification(course, classification)==null)
-			this.courseclasRepository.save(new CourseClas(course,classification));
+		}
+		courseclas.setCourse(courseRepository.findOne(course.getId()));
+		courseclas.setClassification(classificationRepository.findOne(classification.getId()));
+		courseclasRepository.save(courseclas);
+		return "redirect:/admin/courseclas/courseclass";
 	}
 }

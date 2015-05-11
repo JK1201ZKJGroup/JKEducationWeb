@@ -44,12 +44,20 @@
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right"></div>
 							</div>
+							
+		<c:forEach items="${list}" var="courseclas">
+            <tr>
+              <td>分类名称:</td>
+              <td>「${courseclas.classification.name}」
+			</tr><br>
+		</c:forEach>
+		<br>				
 	    <c:forEach items="${page2.content}" var="courseclas">
             <tr>
               <td><input type="checkbox" /></td>
               <td>「${courseclas.name}」————</td>
               <td>「${courseclas.name}」</td>
-			  <td><a href="" class="btn btn-primary">关联分类</a></td>
+			  <td><a href='admin/courseclas/${id }/connected?classificationname=${courseclas.name}' class="btn btn-primary">关联分类</a></td>
 			</tr><br>
 		</c:forEach>							
 	    <c:forEach items="${page1.content}" var="courseclas">
@@ -57,7 +65,7 @@
               <td><input type="checkbox" /></td>
               <td>「${courseclas.parent.name}」————</td>
               <td>「${courseclas.name}」</td>
-			  <td><a href="" class="btn btn-primary">关联分类</a></td>
+			  <td><a href='admin/courseclas/${id }/connected?classificationname=${courseclas.name}' class="btn btn-primary">关联分类</a></td>
 			</tr><br>
 		</c:forEach>
 		</div>

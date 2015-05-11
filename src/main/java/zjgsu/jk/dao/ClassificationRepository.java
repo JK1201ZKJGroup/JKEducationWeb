@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import zjgsu.jk.model.Classification;
+import zjgsu.jk.model.Course;
+import zjgsu.jk.model.CourseClas;
 
 /**
  * @author zkj
@@ -25,4 +27,6 @@ public interface ClassificationRepository extends JpaRepository<Classification, 
 	public Page<Classification> findByParentIsNotNull(Pageable pageable);
 	
 	public List<Classification> findByParent(Classification classification);
+	
+	public Classification findByName(String name);
 }
