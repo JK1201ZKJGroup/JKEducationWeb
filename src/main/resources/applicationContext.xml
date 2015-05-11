@@ -28,9 +28,11 @@
             </bean>  
         </property>  
     </bean>  
+   
     
      <!-- 该 BeanPostProcessor 将自动起作用，对标注 @Autowired 的 Bean 进行自动注入 -->     
       <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+ 
     
     <!-- 自动扫描并注入Spring Data JPA -->  
     <jpa:repositories base-package="zjgsu.jk.dao" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager">  
