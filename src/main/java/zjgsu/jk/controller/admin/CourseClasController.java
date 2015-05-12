@@ -3,9 +3,6 @@
  */
 package zjgsu.jk.controller.admin;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,8 +93,6 @@ public class CourseClasController extends AbstractService {
 		model.addAttribute("page1", classificationRepository.findByParentIsNotNull(new PageRequest(0, 10)));
 		model.addAttribute("page2", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
 		model.addAttribute("list", courseclasRepository.findByCourse(courseclas.getCourse()));
-		//System.out.println(courseclasRepository.findByCourse(courseclas.getCourse()));
-		//model.addAttribute("page4", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
 		return "/admin/courseclas/modify";
 	}
 
@@ -109,29 +104,6 @@ public class CourseClasController extends AbstractService {
 		return "redirect:/admin/courseclas/courseclass";
 	}
 	
-//	@GET
-//	@Template(name = "/bizs/biz_connect")
-//	@Path("/{id}/connect")
-//	@Produces(MediaType.TEXT_HTML)
-//	public Map<String, Object> connect(@PathParam("id") Long id){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("page", classificationRepository
-//				.findByParentIsNotNull(new PageRequest(0, 10)));
-//		map.put("model", bizRepository.findOne(id));
-//		map.put("modelext",modelext);
-//		return map;
-//	}
-
-//	@Transactional
-//	@RequestMapping(value = "/{id}/connected",method = RequestMethod.GET)
-//	public void connected(@PathVariable Long id, Long course1){
-//		Course course = this.courseRepository.findOne(id);
-//		Classification classification = this.classificationRepository.findOne(id);
-//		if(courseclasRepository.findByCourseAndClassification(course, classification.getParent())==null)
-//			this.courseclasRepository.save(new CourseClas(course,classification.getParent()));
-//		if(courseclasRepository.findByCourseAndClassification(course, classification)==null)
-//			this.courseclasRepository.save(new CourseClas(course,classification));
-//	}
 
 	@RequestMapping(value = "/{id}/connected",method = RequestMethod.GET)
 	public String connected(Model model,@PathVariable Long id){
@@ -148,16 +120,20 @@ public class CourseClasController extends AbstractService {
 		CourseClas courseclas = courseclasRepository.findOne(id);
 		Course course = courseRepository.findOne(courseclas.getCourse().getId());
 		Classification classification = classificationRepository.findByName(arg0.getParameter("classificationname"));
-		System.out.println(classification.getParent().getName());
-		System.out.println(course.getName());
-		System.out.println(courseclasRepository.findByCourseAndClassification(course, classification.getParent()));
-		if(courseclasRepository.findByCourseAndClassification(course, classification.getParent()).isEmpty())
+//		System.out.println(classification.getParent().getName());
+//		System.out.println(course.getName());
+//		System.out.println(courseclasRepository.findByCourseAndClassification(course, classification.getParent()));
+		if((classification.getParent()!=null)&&courseclasRepository.findByCourseAndClassification(course, classification.getParent()).isEmpty())
 		{
 			this.courseclasRepository.save(new CourseClas(course,classification.getParent()));
 		}
-		courseclas.setCourse(courseRepository.findOne(course.getId()));
-		courseclas.setClassification(classificationRepository.findOne(classification.getId()));
-		courseclasRepository.save(courseclas);
+		if(courseclasRepository.findByCourseAndClassification(course, classification).isEmpty())
+		{
+			this.courseclasRepository.save(new CourseClas(course,classification));
+		}
+//		courseclas.setCourse(courseRepository.findOne(course.getId()));
+//		courseclas.setClassification(classificationRepository.findOne(classification.getId()));
+//		courseclasRepository.save(courseclas);
 		return "redirect:/admin/courseclas/courseclass";
 	}
 }

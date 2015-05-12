@@ -35,22 +35,18 @@
 
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">分类名称:</div>
-								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<input type="text" class="am-input-sm" name="courseclas.name" value="${classification.name}" />
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">							
+							<c:forEach items="${list}" var="courseclas">
+								<input type="text" class="am-input-sm" name="courseclas.name" value="${courseclas.classification.name}" />
+								</c:forEach>
 								</div>
-							</div>
+							</div>	
 
-				
+											
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right"></div>
 							</div>
 							
-		<c:forEach items="${list}" var="courseclas">
-            <tr>
-              <td>分类名称:</td>
-              <td>「${courseclas.classification.name}」
-			</tr><br>
-		</c:forEach>
 		<br>				
 	    <c:forEach items="${page2.content}" var="courseclas">
             <tr>
@@ -71,8 +67,7 @@
 		</div>
 	</div>
 		<div class="am-margin">
-						<button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
-						<button type="button" class="am-btn am-btn-primary am-btn-xs" onclick="javascript:window.history.go(-1)">放弃保存</button>
+						<button type="button" class="am-btn am-btn-primary am-btn-xs" onclick="javascript:window.history.go(-1)">返回</button>
 					</div>
 				</sf:form>
 			</div>
