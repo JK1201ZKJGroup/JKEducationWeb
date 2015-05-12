@@ -3,6 +3,8 @@
  */
 package zjgsu.jk.controller.admin;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,10 @@ public class CourseClasController extends AbstractService {
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public String add(CourseClas courseclas) {
 			courseclasRepository.save(courseclas);
+			if((courseclas.getClassification().getParent()!=null)&&courseclasRepository.findByCourseAndClassification(courseclas.getCourse(), courseclas.getClassification().getParent()).isEmpty())
+			{
+				this.courseclasRepository.save(new CourseClas(courseclas.getCourse(), courseclas.getClassification().getParent()));
+			}
 			return "redirect:/admin/course/courses";
 	}
 	
@@ -64,6 +70,15 @@ public class CourseClasController extends AbstractService {
 	public String delete(@PathVariable Long id){
 		CourseClas courseclas = courseclasRepository.findOne(id);
 		courseclasRepository.delete(courseclas);
+		ArrayList<CourseClas> list = (ArrayList<CourseClas>) courseclasRepository.findAll();
+		System.out.println(list);
+		for(int i=0; i<list.size();i++)
+		{
+			if(((list.get(i)).getClassification().getParent() == courseclas.getClassification())&&((list.get(i)).getCourse() == courseclas.getCourse()))
+			{
+				courseclasRepository.delete(courseclasRepository.findOne((list.get(i)).getId()));
+			}
+		}
 		return "redirect:/admin/courseclas/courseclass";
 	}	
 	
@@ -120,9 +135,6 @@ public class CourseClasController extends AbstractService {
 		CourseClas courseclas = courseclasRepository.findOne(id);
 		Course course = courseRepository.findOne(courseclas.getCourse().getId());
 		Classification classification = classificationRepository.findByName(arg0.getParameter("classificationname"));
-//		System.out.println(classification.getParent().getName());
-//		System.out.println(course.getName());
-//		System.out.println(courseclasRepository.findByCourseAndClassification(course, classification.getParent()));
 		if((classification.getParent()!=null)&&courseclasRepository.findByCourseAndClassification(course, classification.getParent()).isEmpty())
 		{
 			this.courseclasRepository.save(new CourseClas(course,classification.getParent()));
@@ -131,9 +143,6 @@ public class CourseClasController extends AbstractService {
 		{
 			this.courseclasRepository.save(new CourseClas(course,classification));
 		}
-//		courseclas.setCourse(courseRepository.findOne(course.getId()));
-//		courseclas.setClassification(classificationRepository.findOne(classification.getId()));
-//		courseclasRepository.save(courseclas);
 		return "redirect:/admin/courseclas/courseclass";
 	}
 }

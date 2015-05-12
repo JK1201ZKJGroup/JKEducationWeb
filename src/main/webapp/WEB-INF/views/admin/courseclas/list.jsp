@@ -19,7 +19,8 @@
       <div class="am-u-sm-12 am-u-md-6">
         <div class="am-btn-toolbar">
           <div class="am-btn-group am-btn-group-xs">
-            <a href="admin/courseclas/add?parentid=${model.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
+<%--             <a href="admin/courseclas/add?parentid=${model.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary" > --%>
+         	<a class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span>添加
          	</a>
             <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
