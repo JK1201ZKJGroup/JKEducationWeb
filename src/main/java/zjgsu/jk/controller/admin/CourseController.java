@@ -114,17 +114,15 @@ public class CourseController extends AbstractService {
 //		System.out.println(realpath);
 		if(!attach1.isEmpty())
 		{
-			System.out.println("attach1.getOriginalFilename()");
-			File f1 = new File(realpath+"/"+attach1.getOriginalFilename());
+			File f1 = new File(realpath+"/video"+"/"+attach1.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(attach1.getInputStream(), f1); //上传文件
-			course1.setFilepath(realpath+"/"+attach1.getOriginalFilename());
+			course1.setFilepath(realpath+"/video"+"/"+attach1.getOriginalFilename());
 			course.setFilepath(course1.getFilepath());
 		}
 		if(!attach2.isEmpty()){
-			System.out.println("attach2.getOriginalFilename()");
-			File f2 = new File(realpath+"/"+attach2.getOriginalFilename());
+			File f2 = new File(realpath+"/image"+"/"+attach2.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(attach2.getInputStream(), f2); //上传图片
-			course1.setAvatar(realpath+"/"+attach2.getOriginalFilename());
+			course1.setAvatar(realpath+"/image"+"/"+attach2.getOriginalFilename());
 			course.setAvatar(course1.getAvatar());
 		}
 //		CourseClas courseclas = new CourseClas();

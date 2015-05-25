@@ -28,5 +28,7 @@ public interface ClassificationRepository extends JpaRepository<Classification, 
 	
 	public List<Classification> findByParent(Classification classification);
 	
+	public Classification findById(Long id);
+	
 	public Classification findByName(String name);
 }
