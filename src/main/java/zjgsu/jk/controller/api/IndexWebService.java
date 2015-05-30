@@ -4,7 +4,12 @@
 package zjgsu.jk.controller.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.dao.CourseClasRepository;
@@ -52,10 +59,17 @@ public class IndexWebService extends AbstractService {
 	
 	@RequestMapping(value="/childclassification.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Classification> getClassificationCourse(@RequestParam Long id){
+	public HashMap getClassificationCourse(@RequestParam Long id){
+		int i = 0;
 		Classification classificationKey = this.classificationRepository.findById(id); 
 		List<Classification> classificationList = this.classificationRepository.findByParent(classificationKey);
-		return classificationList;
+		HashMap map = new HashMap();
+		for(i=0;i<=3;i++)
+			map.put("TitleClassification"+Integer.toHexString(i), this.classificationRepository.findById(id+i));
+		
+//		JSONObject json = JSONObject.fromObject(map);
+//		System.out.println(json);
+		return map; 
 //		map.put("abc",classificationList);
 	}
 
