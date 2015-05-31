@@ -59,14 +59,13 @@ public class IndexWebService extends AbstractService {
 	
 	@RequestMapping(value="/childclassification.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HashMap getClassificationCourse(@RequestParam Long id){
+	public HashMap<String, Object> getClassificationCourse(@RequestParam Long id){
 		int i = 0;
 		Classification classificationKey = this.classificationRepository.findById(id); 
 		List<Classification> classificationList = this.classificationRepository.findByParent(classificationKey);
-		HashMap map = new HashMap();
-		for(i=0;i<=3;i++)
-			map.put("TitleClassification"+Integer.toHexString(i), this.classificationRepository.findById(id+i));
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("TitleCourse", this.courseRepository.findById(id));
+		map.put("TitleClassification", this.classificationRepository.findAll());
 //		JSONObject json = JSONObject.fromObject(map);
 //		System.out.println(json);
 		return map; 
