@@ -33,7 +33,7 @@ import zjgsu.jk.model.User;
 import zjgsu.jk.service.AbstractService;
 
 /**
- * @author zkj
+ * @author zby
  * 
  *
  */
@@ -60,16 +60,26 @@ public class IndexWebService extends AbstractService {
 	@RequestMapping(value="/childclassification.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HashMap<String, Object> getClassificationCourse(@RequestParam Long id){
-		int i = 0;
 		Classification classificationKey = this.classificationRepository.findById(id); 
 		List<Classification> classificationList = this.classificationRepository.findByParent(classificationKey);
+		int i,j;
+		int listLength = classificationList.size();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TitleCourse", this.courseRepository.findById(id));
-		map.put("TitleClassification", this.classificationRepository.findAll());
+		map.put("listLength", listLength);
+		map.put("List", classificationList);
+		for(i=0; i<listLength; i++)
+		{
+			List<Course> courseList = new ArrayList<Course>() ;
+			List<CourseClas> courseclasList = this.courseclasRepository.findByClassification(classificationList.get(i));
+			for(j=0; j<courseclasList.size(); j++)
+			{
+				courseList.add(j, courseclasList.get(j).getCourse());	
+			}
+			map.put("Title"+Long.toHexString(courseclasList.get(i).getClassification().getId()), courseList);
+		}
 //		JSONObject json = JSONObject.fromObject(map);
-//		System.out.println(json);
+//		System.out.rintln(json);
 		return map; 
-//		map.put("abc",classificationList);
 	}
 
 	@RequestMapping(value="/courselist.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
