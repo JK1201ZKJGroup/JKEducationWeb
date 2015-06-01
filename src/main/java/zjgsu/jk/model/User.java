@@ -1,6 +1,5 @@
 package zjgsu.jk.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;

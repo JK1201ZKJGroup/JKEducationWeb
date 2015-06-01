@@ -2,7 +2,6 @@ package zjgsu.jk.utils;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -50,7 +47,6 @@ public class MyAuthenticationHandlers implements AuthenticationSuccessHandler{
 		 protected String determineTargetUrl(Authentication authentication) {  
 		        boolean isUser = false;  
 		        boolean isAdmin = false; 
-		        boolean isHospital = false;
 		        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();  
 		        for (GrantedAuthority grantedAuthority : authorities) {  
 		            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {  
