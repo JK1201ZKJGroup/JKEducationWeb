@@ -83,11 +83,9 @@ public class IndexWebService extends AbstractService {
 
 	@RequestMapping(value="/courseinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HashMap<String, Object> getCourseInfo(@RequestParam("id") Long id){
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public Course getCourseInfo(@RequestParam("id") Long id){
 		Course course = this.courseRepository.findById(id);
-		map.put("course", course);
-		return map;
+		return course;
 	}
 	
 	@RequestMapping(value="/userinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
