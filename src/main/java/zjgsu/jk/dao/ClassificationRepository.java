@@ -5,14 +5,11 @@ package zjgsu.jk.dao;
 
 import java.util.List;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import zjgsu.jk.model.Classification;
-import zjgsu.jk.model.Course;
-import zjgsu.jk.model.CourseClas;
 
 /**
  * @author zkj

@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 
 import zjgsu.jk.dao.AuthoritiesRepository;
 import zjgsu.jk.model.Account;
-import zjgsu.jk.model.Authorities;
 
 /**
  * @author zkj

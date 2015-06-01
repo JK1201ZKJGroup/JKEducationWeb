@@ -5,27 +5,23 @@ package zjgsu.jk.controller.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.List;
-
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import zjgsu.jk.dao.AccountRepository;
 import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.dao.CourseClasRepository;
 import zjgsu.jk.dao.CourseRepository;
 import zjgsu.jk.dao.UserRepository;
+import zjgsu.jk.model.Account;
 import zjgsu.jk.model.Classification;
 import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
@@ -49,7 +45,10 @@ public class IndexWebService extends AbstractService {
 	private CourseRepository courseRepository;
 	@Autowired
 	private CourseClasRepository courseclasRepository;
-	
+	@Autowired
+	private AccountRepository accountRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@RequestMapping(value="/user.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public  List<User> getUser(){
@@ -109,4 +108,17 @@ public class IndexWebService extends AbstractService {
 		User user = this.userRepository.findById(id);
 		return user;
 	}	
+	
+	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	//URL：localhost:8080/web-core/api/login?username=XXX&password=XXX
+	public boolean login(@RequestParam("username") String username
+			,@RequestParam("password")String password){
+		Account  account = this.accountRepository.findByUsername(username);
+		if(account.getPassword().equals(passwordEncoder.encode(password))){
+			return true;
+		}
+		else
+			return false;
+	}
 }
