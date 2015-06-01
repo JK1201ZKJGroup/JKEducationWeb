@@ -58,7 +58,7 @@ public class IndexWebService extends AbstractService {
 	
 	@RequestMapping(value="/childclassification.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HashMap<String, Object> getClassificationCourse(@RequestParam Long id){
+	public HashMap<String, Object> getClassificationCourse(@RequestParam("id") Long id){
 		Classification classificationKey = this.classificationRepository.findById(id); 
 		List<Classification> classificationList = this.classificationRepository.findByParent(classificationKey);
 		int i,j;
@@ -81,33 +81,21 @@ public class IndexWebService extends AbstractService {
 		return map; 
 	}
 
-	@RequestMapping(value="/courselist.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<Course> getCourseList(@RequestParam Long id){
-		int i;
-		List <Course> courseList = new ArrayList<Course>();
-		Classification classificationKey = this.classificationRepository.findById(id);
-		List <CourseClas> courseclasList= this.courseclasRepository.findByClassification(classificationKey);
-		for(i=0;i<courseclasList.size();i++)
-		{
-			courseList.add(courseclasList.get(i).getCourse());
-		}
-		return courseList;
-	}
-
 	@RequestMapping(value="/courseinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Course getCourseInfo(@RequestParam Long id){
+	public HashMap<String, Object> getCourseInfo(@RequestParam("id") Long id){
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		Course course = this.courseRepository.findById(id);
-		return course;
+		map.put("course", course);
+		return map;
 	}
 	
 	@RequestMapping(value="/userinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public User getUserInfo(@RequestParam Long id){
+	public User getUserInfo(@RequestParam("id") Long id){
 		User user = this.userRepository.findById(id);
 		return user;
-	}	
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
