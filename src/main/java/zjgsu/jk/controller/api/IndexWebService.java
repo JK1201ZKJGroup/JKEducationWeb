@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
