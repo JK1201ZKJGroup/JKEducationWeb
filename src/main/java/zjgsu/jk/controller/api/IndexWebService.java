@@ -27,6 +27,7 @@ import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
 import zjgsu.jk.model.User;
 import zjgsu.jk.service.AbstractService;
+import zjgsu.jk.service.AccountService;
 
 /**
  * @author zby
@@ -101,10 +102,6 @@ public class IndexWebService extends AbstractService {
 	public boolean login(@RequestParam("username") String username
 			,@RequestParam("password")String password){
 		Account  account = this.accountRepository.findByUsername(username);
-		if(account.getPassword().equals(passwordEncoder.encode(password))){
-			return true;
-		}
-		else
-			return false;
+		return passwordEncoder.matches(password, account.getPassword());
 	}
 }
