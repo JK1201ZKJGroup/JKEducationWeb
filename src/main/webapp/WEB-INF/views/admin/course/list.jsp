@@ -69,6 +69,7 @@
 									<th class="table-id">ID</th>
 									<th class="table-date am-hide-sm-only">课程名称</th>
 									<th class="table-date am-hide-sm-only">作者</th>
+									<th class="table-date am-hide-sm-only">课程照片</th>
 									<th class="table-author am-hide-sm-only">是否免费</th>
 									<th class="table-date am-hide-sm-only">观看价格</th>
 									<th class="table-date am-hide-sm-only">课程时长</th>
@@ -86,7 +87,8 @@
 										<td><input type="checkbox" /></td>
 										<td>${course.id }</td>
 										<td>${course.name}</td>
-										<td class="am-hide-sm-only">${course.avater}</td>
+										<td class="am-hide-sm-only">${course.author}</td>
+										<td class="am-hide-sm-only"><img src="${course.avatar}" width="50px" height="50px"></td>
 										<td class="am-hide-sm-only"><c:if test="${course.freeflag==true}">免费</c:if><c:if test="${course.freeflag==false}">收费</c:if></td>
 										<td class="am-hide-sm-only">${course.price}</td>
 										<td class="am-hide-sm-only">${course.duration}</td>

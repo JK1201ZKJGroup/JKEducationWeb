@@ -20,21 +20,20 @@
 				<ul class="am-tabs-nav am-nav am-nav-tabs">
 					<li><a href="#tab1">课程信息</a></li>
 				</ul>
-				<sf:form method="post" modelAttribute="course" onsubmit="return"
-					class="am-form" id="tab1" enctype="multipart/form-data">
+				<form method="post" class="am-form" enctype="multipart/form-data">
 					<div class="am-tabs-bd">
 						<div class="am-tab-panel am-fade">
 
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程名称:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="name" />
+									<input type="text" class="am-input-sm" name="name" />
 								</div>
 							</div>
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">作者:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="avater" />
+									<input type="text" class="am-input-sm" name="author" />
 								</div>
 							</div>
 
@@ -42,70 +41,52 @@
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">是否免费:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
 									<select name="freeflag">
-										<option value="1" selected>免费</option>
-										<option value="0">收费</option>
+										<option value="true" selected>免费</option>
+										<option value="false" >收费</option>
 									</select>
 								</div>
 							</div>
 
-							<div class="am-g am-margin-top">
+							<div class="am-g am-margin-top" >
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">观看价格:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="price" />
+									<input type="text" class="am-input-sm" name="price" />
 								</div>
 							</div>
 
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程时长:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="duration" />
+									<input type="text" class="am-input-sm" name="duration" />
 								</div>
 							</div>
 			
-										<div class="am-g am-margin-top">
+							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程难度:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="level" />
+									<input type="text" class="am-input-sm" name="level" />
 								</div>
 							</div>
 											
 							<div class="am-g am-margin-top">
-								<div class="am-u-sm-4 am-u-md-2 am-text-right">点击量:</div>
-								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="view" />
-								</div>
-							</div>
-							
-							<div class="am-g am-margin-top">
-								<div class="am-u-sm-4 am-u-md-2 am-text-right">学习人数:</div>
-								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="studentnum" />
-								</div>
-							</div>		
-
-							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程简介:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<sf:input type="text" class="am-input-sm" path="introduction" />
+									<textarea class="am-input-sm" name="introduction" rows="5" cols="20"></textarea>
 								</div>
 							</div>							
 							
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">封面图片:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<input type="file" class="am-input-sm" name="attach2" />
+									<input type="file" class="am-input-sm" name="avatar" />
 								</div>
 							</div>
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">文件上传:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<input type="file" class="am-input-sm" name="attach1" />
+									<input type="file" class="am-input-sm" name="video" />
 								</div>
 							</div>
-							<div class="am-g am-margin-top">
-								<div class="am-u-sm-4 am-u-md-2 am-text-right"></div>
-							</div>
-
 						</div>
 					</div>
 					<div class="am-margin">
@@ -113,7 +94,7 @@
 						<button type="button" class="am-btn am-btn-primary am-btn-xs" onclick="javascript:window.history.go(-1)">放弃保存</button>
 					</div>
 					
-				</sf:form>
+				</form>
 			</div>
 		</div>
 		</div>

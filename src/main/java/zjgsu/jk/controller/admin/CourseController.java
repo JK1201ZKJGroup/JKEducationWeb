@@ -5,6 +5,9 @@ package zjgsu.jk.controller.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,19 +54,30 @@ public class CourseController extends AbstractService {
 	
 	@Transactional
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public String add(Course course,MultipartFile attach1,MultipartFile attach2, HttpServletRequest req) throws IOException{
-			String realpath= "D:/eclipse_workspace/JKEducationWeb/src/main/resources/upload";
-			if(!attach1.isEmpty())
+	public String add(@RequestParam("name")String name,@RequestParam("author")String author,@RequestParam("freeflag")boolean freeflag,
+			@RequestParam("price")BigDecimal price,@RequestParam("level")String level,@RequestParam("introduction")String introduction,
+			@RequestParam("avatar") MultipartFile avatar,@RequestParam("video") MultipartFile video,@RequestParam("duration") Double duration) throws IOException{
+			Course course = new Course();
+			course.setAuthor(author);
+			course.setName(name);
+			course.setFreeflag(freeflag);
+			course.setPrice(price);
+			course.setLevel(level);
+			course.setDuration(duration);
+			course.setIntroduction(introduction);
+			/*if(!video.isEmpty())
 			{
-				File f1 = new File(realpath+"/"+attach1.getOriginalFilename());
-				FileUtils.copyInputStreamToFile(attach1.getInputStream(), f1); //上传文件
-				course.setFilepath(realpath+"/"+attach1.getOriginalFilename());
+				File f1 = new File(realpath+"/video/"+video.getOriginalFilename());
+				FileUtils.copyInputStreamToFile(video.getInputStream(), f1); //上传文件
+				course.setFilepath("static/video/"+video.getOriginalFilename());
 			}
-			if(!attach2.isEmpty()){
-				File f2 = new File(realpath+"/"+attach2.getOriginalFilename());
-				FileUtils.copyInputStreamToFile(attach2.getInputStream(), f2); //上传图片
-				course.setAvatar(realpath+"/"+attach2.getOriginalFilename());
-			}
+			if(!avatar.isEmpty()){
+				File f2 = new File(realpath+"/avatar/"+avatar.getOriginalFilename());
+				FileUtils.copyInputStreamToFile(avatar.getInputStream(), f2); //上传图片
+				course.setAvatar("static/avatar/"+avatar.getOriginalFilename());
+			}*/
+			course.setStudentnum(0);
+			course.setView(0);
 			courseRepository.save(course);
 			return "redirect:/admin/course/courses";
 	}
@@ -99,7 +113,7 @@ public class CourseController extends AbstractService {
 		course.setFreeflag(course1.isFreeflag());
 		course.setPrice(course1.getPrice());
 		course.setView(course1.getView());
-		course.setAvater(course1.getAvater());
+		course.setAuthor(course1.getAuthor());
 		course.setDuration(course1.getDuration());
 		course.setStudentnum(course1.getStudentnum());
 		course.setIntroduction(course1.getIntroduction());
