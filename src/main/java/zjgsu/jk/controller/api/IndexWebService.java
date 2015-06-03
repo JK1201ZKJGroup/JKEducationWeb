@@ -3,10 +3,23 @@
  */
 package zjgsu.jk.controller.api;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+
+
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +40,6 @@ import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
 import zjgsu.jk.model.User;
 import zjgsu.jk.service.AbstractService;
-import zjgsu.jk.service.AccountService;
 
 /**
  * @author zby
@@ -50,6 +62,8 @@ public class IndexWebService extends AbstractService {
 	private AccountRepository accountRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
 	@RequestMapping(value="/user.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public  List<User> getUser(){
@@ -101,6 +115,80 @@ public class IndexWebService extends AbstractService {
 	//URL：localhost:8080/web-core/api/login?username=XXX&password=XXX
 	public boolean login(@RequestParam("username") String username
 			,@RequestParam("password")String password){
+		Account  account = this.accountRepository.findByUsername(username);
+		return passwordEncoder.matches(password, account.getPassword());
+	}
+	
+	@RequestMapping(value="/pin",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&captcha=XXX	
+	public void captcha(){ 
+		HttpClient client = new HttpClient(); 
+		PostMethod method = new PostMethod(Url); 
+			
+		//client.getParams().setContentCharset("GBK");		
+		client.getParams().setContentCharset("UTF-8");
+		method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
+
+		
+		int mobile_code = (int)((Math.random()*9+1)*100000);
+
+		//System.out.println(mobile);
+	    String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。"); 
+		NameValuePair[] data = {//�ύ����
+			    new NameValuePair("account", "cf_zhengboyi"), 
+			    new NameValuePair("password", "64226641"), //�������ʹ�����������ʹ��32λMD5����
+			    //new NameValuePair("password", util.StringUtil.MD5Encode("����")),
+			    new NameValuePair("mobile", "15757129731"), 
+			    new NameValuePair("content", content),
+		};
+		
+		method.setRequestBody(data);		
+		
+		
+		try {
+			client.executeMethod(method);	
+			
+			String SubmitResult =method.getResponseBodyAsString();
+					
+			//System.out.println(SubmitResult);
+
+			Document doc = DocumentHelper.parseText(SubmitResult); 
+			Element root = doc.getRootElement();
+
+
+			String code = root.elementText("code");	
+			String msg = root.elementText("msg");	
+			String smsid = root.elementText("smsid");	
+			
+			
+			System.out.println(code);
+			System.out.println(msg);
+			System.out.println(smsid);
+						
+			 if("2".equals(code)){
+				System.out.println("�����ύ�ɹ�");
+			}
+			
+		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+}
+	
+	@RequestMapping(value="/register",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&captcha=XXX	
+	public boolean register(@RequestParam("username") String username
+			,@RequestParam("password")String password,
+			@RequestParam("captcha")String captcha){
 		Account  account = this.accountRepository.findByUsername(username);
 		return passwordEncoder.matches(password, account.getPassword());
 	}
