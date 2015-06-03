@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import zjgsu.jk.dao.CourseRepository;
 import zjgsu.jk.model.Course;
 import zjgsu.jk.service.AbstractService;
+import zjgsu.jk.utils.Uptoken;
 
 /**
  * @author zby
@@ -49,6 +50,7 @@ public class CourseController extends AbstractService {
 	@RequestMapping(value = "/add",method = RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute(new Course());
+		model.addAttribute("uptoken", Uptoken.getUptoken());
 		return "/admin/course/add";
 	}
 	
@@ -56,7 +58,7 @@ public class CourseController extends AbstractService {
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public String add(@RequestParam("name")String name,@RequestParam("author")String author,@RequestParam("freeflag")boolean freeflag,
 			@RequestParam("price")BigDecimal price,@RequestParam("level")String level,@RequestParam("introduction")String introduction,
-			@RequestParam("avatar") MultipartFile avatar,@RequestParam("video") MultipartFile video,@RequestParam("duration") Double duration) throws IOException{
+			@RequestParam("avatar") String avatar,@RequestParam("video") String video,@RequestParam("duration") Double duration) throws IOException{
 			Course course = new Course();
 			course.setAuthor(author);
 			course.setName(name);
@@ -78,6 +80,8 @@ public class CourseController extends AbstractService {
 			}*/
 			course.setStudentnum(0);
 			course.setView(0);
+			course.setAvatar(avatar);
+			course.setFilepath(video);
 			courseRepository.save(course);
 			return "redirect:/admin/course/courses";
 	}

@@ -26,9 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="static/css/amazeui.css"/>
 <link rel="stylesheet" href="static/css/amui.all.min.css"/>
-
 <link rel="stylesheet" href="static/css/admin.css">
 <link rel="stylesheet" href="static/css/theme-blue.css">
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/amazeui.min.js"></script>
+<script src="static/js/app.js"></script>
 <decorator:head />
 </head>
 <body>
@@ -116,11 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="static/js/jquery.min.js"></script>
-<script src="static/js/amazeui.min.js"></script>
 <!--<![endif]-->
-<script src="static/js/app.js"></script>
-
 </body>
 
 </html>
