@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -24,17 +22,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import zjgsu.jk.dao.AccountRepository;
+import zjgsu.jk.dao.AuthoritiesRepository;
 import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.dao.CourseClasRepository;
 import zjgsu.jk.dao.CourseRepository;
 import zjgsu.jk.dao.UserRepository;
 import zjgsu.jk.model.Account;
+import zjgsu.jk.model.Authorities;
 import zjgsu.jk.model.Classification;
 import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
@@ -61,8 +62,10 @@ public class IndexWebService extends AbstractService {
 	@Autowired
 	private AccountRepository accountRepository;
 	@Autowired
+	private AuthoritiesRepository authoritiesRepository;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+	HttpSession session;
 	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
 	@RequestMapping(value="/user.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -91,8 +94,6 @@ public class IndexWebService extends AbstractService {
 			}
 			map.put("Title"+Long.toHexString(courseclasList.get(i).getClassification().getId()), courseList);
 		}
-//		JSONObject json = JSONObject.fromObject(map);
-//		System.out.rintln(json);
 		return map; 
 	}
 
@@ -118,11 +119,20 @@ public class IndexWebService extends AbstractService {
 		Account  account = this.accountRepository.findByUsername(username);
 		return passwordEncoder.matches(password, account.getPassword());
 	}
-	
-	@RequestMapping(value="/pin",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(value="/test",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&captcha=XXX	
-	public void captcha(){ 
+	public void test(@RequestParam("username") String username){
+		System.out.println(username);
+	}
+	
+	@RequestMapping(value="/mobile_code",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	//URL：localhost:8080/web-core/api/mobile_code?username=XXX	
+	public boolean mobile_code(@RequestParam("username") String username){
+		Account  tempAccount = this.accountRepository.findByUsername(username);
+		if(tempAccount == null){
 		HttpClient client = new HttpClient(); 
 		PostMethod method = new PostMethod(Url); 
 			
@@ -132,13 +142,12 @@ public class IndexWebService extends AbstractService {
 
 		
 		int mobile_code = (int)((Math.random()*9+1)*100000);
-
-		//System.out.println(mobile);
+		session.setAttribute("code", mobile_code);
 	    String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。"); 
-		NameValuePair[] data = {//�ύ����
+		NameValuePair[] data = {
 			    new NameValuePair("account", "cf_zhengboyi"), 
-			    new NameValuePair("password", "64226641"), //�������ʹ�����������ʹ��32λMD5����
-			    //new NameValuePair("password", util.StringUtil.MD5Encode("����")),
+			    new NameValuePair("password", "64226641"),
+			    //new NameValuePair("password", util.StringUtil.MD5Encode("")),
 			    new NameValuePair("mobile", "15757129731"), 
 			    new NameValuePair("content", content),
 		};
@@ -167,7 +176,7 @@ public class IndexWebService extends AbstractService {
 			System.out.println(smsid);
 						
 			 if("2".equals(code)){
-				System.out.println("�����ύ�ɹ�");
+				System.out.println("发送成功");
 			}
 			
 		} catch (HttpException e) {
@@ -179,17 +188,45 @@ public class IndexWebService extends AbstractService {
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
+		return true;	
+		}
+		else
+		{
+			return false;
+		}
 		
 }
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	@ResponseBody
-	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&captcha=XXX	
+	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&mobile_code=XXX	
 	public boolean register(@RequestParam("username") String username
 			,@RequestParam("password")String password,
-			@RequestParam("captcha")String captcha){
-		Account  account = this.accountRepository.findByUsername(username);
-		return passwordEncoder.matches(password, account.getPassword());
+			@RequestParam("mobile_code")String mobile_code){
+		String test_code = (String) session.getAttribute("code");
+//		String test_code = Integer.toString(1234);
+		System.out.println(test_code);	
+		if(mobile_code.equals(test_code))
+		{
+			User user = new User();
+			user.setPhone(username);
+			System.out.println(user);
+			Account account = new Account(user.getPhone(),
+					passwordEncoder.encode(password), true, user);
+			System.out.println(account);
+			Authorities authorities = new Authorities(account, "ROLE_USER");
+			System.out.println(authorities);
+			userRepository.save(user);
+			accountRepository.save(account);
+			authoritiesRepository.save(authorities);			
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+//		return passwordEncoder.matches(password, account.getPassword());
 	}
 }
