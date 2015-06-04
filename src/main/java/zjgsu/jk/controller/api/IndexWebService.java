@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -130,7 +132,7 @@ public class IndexWebService extends AbstractService {
 	@RequestMapping(value="/mobile_code",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	//URL：localhost:8080/web-core/api/mobile_code?username=XXX	
-	public boolean mobile_code(@RequestParam("username") String username){
+	public boolean mobile_code(@RequestParam("username") String username,HttpServletRequest request){
 		Account  tempAccount = this.accountRepository.findByUsername(username);
 		if(tempAccount == null){
 		HttpClient client = new HttpClient(); 
@@ -142,7 +144,6 @@ public class IndexWebService extends AbstractService {
 
 		
 		int mobile_code = (int)((Math.random()*9+1)*100000);
-		session.setAttribute("code", mobile_code);
 	    String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。"); 
 		NameValuePair[] data = {
 			    new NameValuePair("account", "cf_zhengboyi"), 
@@ -177,6 +178,7 @@ public class IndexWebService extends AbstractService {
 						
 			 if("2".equals(code)){
 				System.out.println("发送成功");
+				request.getSession().setAttribute(username+"code", mobile_code);
 			}
 			
 		} catch (HttpException e) {
@@ -195,7 +197,6 @@ public class IndexWebService extends AbstractService {
 		{
 			return false;
 		}
-		
 }
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -204,8 +205,8 @@ public class IndexWebService extends AbstractService {
 	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&mobile_code=XXX	
 	public boolean register(@RequestParam("username") String username
 			,@RequestParam("password")String password,
-			@RequestParam("mobile_code")String mobile_code){
-		String test_code = (String) session.getAttribute("code");
+			@RequestParam("mobile_code")String mobile_code,HttpServletRequest request){
+		String test_code = request.getSession().getAttribute(username+"code").toString();
 //		String test_code = Integer.toString(1234);
 		System.out.println(test_code);	
 		if(mobile_code.equals(test_code))
