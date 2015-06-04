@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -67,7 +66,6 @@ public class IndexWebService extends AbstractService {
 	private AuthoritiesRepository authoritiesRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	HttpSession session;
 	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
 	@RequestMapping(value="/user.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -121,13 +119,6 @@ public class IndexWebService extends AbstractService {
 		Account  account = this.accountRepository.findByUsername(username);
 		return passwordEncoder.matches(password, account.getPassword());
 	}
-
-	@RequestMapping(value="/test",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&captcha=XXX	
-	public void test(@RequestParam("username") String username){
-		System.out.println(username);
-	}
 	
 	@RequestMapping(value="/mobile_code",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -143,7 +134,8 @@ public class IndexWebService extends AbstractService {
 		method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
 
 		
-		int mobile_code = (int)((Math.random()*9+1)*100000);
+		int mobile_code = (int)((Math.random()*9+1)*1000);
+		System.out.println(mobile_code);
 	    String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。"); 
 		NameValuePair[] data = {
 			    new NameValuePair("account", "cf_zhengboyi"), 
@@ -203,9 +195,8 @@ public class IndexWebService extends AbstractService {
 	@Transactional
 	@ResponseBody
 	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&mobile_code=XXX	
-	public boolean register(@RequestParam("username") String username
-			,@RequestParam("password")String password,
-			@RequestParam("mobile_code")String mobile_code,HttpServletRequest request){
+	public boolean register(@RequestParam("username") String username,@RequestParam("password")String password,
+			@RequestParam("mobile_code")String mobile_code,	HttpServletRequest request){
 		String test_code = request.getSession().getAttribute(username+"code").toString();
 //		String test_code = Integer.toString(1234);
 		System.out.println(test_code);	
