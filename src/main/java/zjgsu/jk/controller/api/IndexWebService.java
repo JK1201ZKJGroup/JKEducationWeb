@@ -5,6 +5,7 @@ package zjgsu.jk.controller.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,12 +35,14 @@ import zjgsu.jk.dao.AuthoritiesRepository;
 import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.dao.CourseClasRepository;
 import zjgsu.jk.dao.CourseRepository;
+import zjgsu.jk.dao.SendCodeRepository;
 import zjgsu.jk.dao.UserRepository;
 import zjgsu.jk.model.Account;
 import zjgsu.jk.model.Authorities;
 import zjgsu.jk.model.Classification;
 import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
+import zjgsu.jk.model.SendCode;
 import zjgsu.jk.model.User;
 import zjgsu.jk.service.AbstractService;
 
@@ -66,6 +69,8 @@ public class IndexWebService extends AbstractService {
 	private AuthoritiesRepository authoritiesRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private SendCodeRepository sendCodeRepository;
 	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
 	@RequestMapping(value="/user.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -135,6 +140,8 @@ public class IndexWebService extends AbstractService {
 
 		
 		int mobile_code = (int)((Math.random()*9+1)*1000);
+		SendCode sendCode = new SendCode(mobile_code,username);
+		this.sendCodeRepository.save(sendCode);
 		System.out.println(mobile_code);
 	    String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。"); 
 		NameValuePair[] data = {
@@ -196,11 +203,10 @@ public class IndexWebService extends AbstractService {
 	@ResponseBody
 	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&mobile_code=XXX	
 	public boolean register(@RequestParam("username") String username,@RequestParam("password")String password,
-			@RequestParam("mobile_code")String mobile_code,	HttpServletRequest request){
-		String test_code = request.getSession().getAttribute(username+"code").toString();
+			@RequestParam("mobile_code")int mobile_code){
+		SendCode sendCode = this.sendCodeRepository.findByUsername(username);
 //		String test_code = Integer.toString(1234);
-		System.out.println(test_code);	
-		if(mobile_code.equals(test_code))
+		if(mobile_code ==sendCode.getCode())
 		{
 			User user = new User();
 			user.setPhone(username);
