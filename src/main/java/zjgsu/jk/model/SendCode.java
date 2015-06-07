@@ -3,10 +3,13 @@
  */
 package zjgsu.jk.model;
 
+import javax.persistence.Entity;
+
 /**
  * @author zkj
  *
  */
+@Entity
 public class SendCode extends AuditableModel {
 
 	/**

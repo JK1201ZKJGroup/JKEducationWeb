@@ -22,6 +22,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -122,15 +123,38 @@ public class IndexWebService extends AbstractService {
 	public boolean login(@RequestParam("username") String username
 			,@RequestParam("password")String password){
 		Account  account = this.accountRepository.findByUsername(username);
+		if(account == null)
+		{
+			return false;
+		}
+		System.out.println(account);
 		return passwordEncoder.matches(password, account.getPassword());
 	}
 	
 	@RequestMapping(value="/mobile_code",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@Transactional
 	//URL：localhost:8080/web-core/api/mobile_code?username=XXX	
-	public boolean mobile_code(@RequestParam("username") String username,HttpServletRequest request){
-		Account  tempAccount = this.accountRepository.findByUsername(username);
-		if(tempAccount == null){
+	public boolean mobile_code(@RequestParam("username") String username,@RequestParam("sendType") String sendType,
+			HttpServletRequest request){
+		boolean switchFlag = true;
+		System.out.println(sendType);
+		if(sendType.equals("1")){	//注册机制
+			if(this.accountRepository.findByUsername(username)==null)			{
+				switchFlag = true;
+			}
+			else {
+				switchFlag = false;
+			}			
+		}
+		else{	//忘记密码	
+			if(this.accountRepository.findByUsername(username)==null)			{
+				switchFlag = false;
+			}
+			else {
+				switchFlag = true;
+			}		}
+		if(switchFlag == true){
 		HttpClient client = new HttpClient(); 
 		PostMethod method = new PostMethod(Url); 
 			
@@ -140,15 +164,25 @@ public class IndexWebService extends AbstractService {
 
 		
 		int mobile_code = (int)((Math.random()*9+1)*1000);
-		SendCode sendCode = new SendCode(mobile_code,username);
-		this.sendCodeRepository.save(sendCode);
+		if(this.sendCodeRepository.findByUsername(username) == null)
+		{
+			SendCode sendCode = new SendCode(mobile_code,username);
+			this.sendCodeRepository.save(sendCode);
+		}
+		else
+		{
+			SendCode sendCode = this.sendCodeRepository.findByUsername(username);
+			sendCode.setCode(mobile_code);
+			this.sendCodeRepository.save(sendCode);
+		}
 		System.out.println(mobile_code);
+		System.out.println(username);
 	    String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。"); 
 		NameValuePair[] data = {
-			    new NameValuePair("account", "cf_zhengboyi"), 
-			    new NameValuePair("password", "64226641"),
+			    new NameValuePair("account", "cf_zhengxi"), 
+			    new NameValuePair("password", "123456"),
 			    //new NameValuePair("password", util.StringUtil.MD5Encode("")),
-			    new NameValuePair("mobile", "15757129731"), 
+			    new NameValuePair("mobile", username), 
 			    new NameValuePair("content", content),
 		};
 		
@@ -190,12 +224,14 @@ public class IndexWebService extends AbstractService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;	
-		}
-		else
-		{
-			return false;
-		}
+		System.out.println("返回来true");
+		return true;		
+	}
+	else
+	{
+		System.out.println("返回来false");
+		return false;
+	}
 }
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -218,13 +254,57 @@ public class IndexWebService extends AbstractService {
 			System.out.println(authorities);
 			userRepository.save(user);
 			accountRepository.save(account);
-			authoritiesRepository.save(authorities);			
+			authoritiesRepository.save(authorities);
+			return true;			
+		}
+		else
+		{
+			return false;
+		}	
+//		return passwordEncoder.matches(password, account.getPassword());
+	}
+	
+	@RequestMapping(value="/forget_testcode",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
+	@ResponseBody
+	//URL：localhost:8080/web-core/api/forget_testcode?username=XXX&mobile_code=XXX	
+	public boolean forget_testcode(@RequestParam("username") String username,
+			@RequestParam("mobile_code") int mobile_code){
+		System.out.println(username);
+		System.out.println(mobile_code);
+		SendCode sendCode = this.sendCodeRepository.findByUsername(username);
+		if(mobile_code ==sendCode.getCode())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@RequestMapping(value="/forget_password",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
+	@ResponseBody
+	//URL：localhost:8080/web-core/api/forget_password?username=XXX&password=XXX&mobile_code=XXX	
+	public boolean forget_password(@RequestParam("username") String username,@RequestParam("password")String password,
+			@RequestParam("mobile_code") int mobile_code){
+		System.out.println(username);
+		System.out.println(password);
+		SendCode sendCode = this.sendCodeRepository.findByUsername(username);
+		System.out.println(sendCode);
+		System.out.println(sendCode.getCode());
+		if(mobile_code ==sendCode.getCode())
+		{
+			Account account = this.accountRepository.findByUsername(username);
+			System.out.println(account);
+			account.setPassword(passwordEncoder.encode(password));
+			accountRepository.save(account);
 		}
 		else
 		{
 			return false;
 		}
 		return true;
-//		return passwordEncoder.matches(password, account.getPassword());
 	}
 }
