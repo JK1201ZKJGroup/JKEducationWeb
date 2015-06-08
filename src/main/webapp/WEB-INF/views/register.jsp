@@ -5,26 +5,45 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="static/css/amazeui.min.css"/>
+  <style>
+    .header {
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
 <title>Insert title here</title>
 </head>
 <body>
-
-<sf:form method="post" modelAttribute="account" onsubmit="return ">
-<table width="100%" align="center" cellspacing="0" cellpadding="0" class="table table-bordered table-striped">
-	<tr>
-	<td>用户名:</td><td><sf:input path="username"/></td>
-	</tr>
-	<tr>
-	<td>密码：</td><td><sf:input path="password"/></td>
-	</tr>
-	<tr>
-	<td colspan="2" style="text-align: center">
-		<input type="submit" value="提交" class="bth btn-primary"/>
-		<input type="button" value="返回" class="bth btn-primary" onClick="javascript:history.go(-1);"/>
-	</td>
-	</tr>
-</table>
+<div class="header">
+  <div class="am-g">
+    <h1>在线教育平台注册</h1>
+  </div>
+  <hr />
+</div>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+<sf:form method="post" modelAttribute="account" onsubmit="return " class="am-form" >
+<label for="email">用户名：</label>
+<sf:input  name="j_username"  path="username"/>
+<br>
+<label for="password">密码：</label>
+<sf:input type="password" path="password"/>
+<br>
+<div class="am-cf">
+		<input type="submit" value="提交"  class="am-btn am-btn-primary am-btn-sm "/>
+		<input type="button" value="返回" class="am-btn am-btn-primary am-btn-sm " onClick="javascript:history.go(-1);"/>
+</div>
+	
 </sf:form>
-
+ </div>
+</div>
 </body>
 </html>

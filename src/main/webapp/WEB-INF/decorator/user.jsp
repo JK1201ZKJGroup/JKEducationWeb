@@ -85,11 +85,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="footer">
     <div class="waper">
         <div class="footerwaper clearfix">
-            <div class="footer_intro">
-                <div class="footer_logo"></div>
-                <p>我们的使命:传播互联网最前沿技术，帮助更多的人实现梦想！</p>
-                <p>Copyright © 2015 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
-            </div>
             <div class="footer_link">
                 <ul>
                     <li><a href="#" target="_blank">网站首页</a></li>

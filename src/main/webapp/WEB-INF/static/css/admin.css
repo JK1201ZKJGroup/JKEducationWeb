@@ -1,7 +1,8 @@
 /**
  * admin.css
  */
-
+ 
+ 
 ul {
   margin-top: 0;
 }
@@ -331,11 +332,11 @@ gallery.html css
 .total-page{
 	padding-left:20px;
 	line-height:62px;
-<<<<<<< HEAD
-=======
+	}
+	
+.m-center-content{
+	min-height:500px;
 }
-
 footer{
 	text-align:center;
->>>>>>> 6a542cb3dcdd02c8c2dade44aaa302ef27584bb0
 }

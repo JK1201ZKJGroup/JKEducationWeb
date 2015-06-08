@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>课程分类信息</title>
 </head>
 <body>
 	<div class="am-cf admin-main">
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">表单</strong> / <small>form</small>
+					<strong class="am-text-primary am-text-lg">课程分类信息</strong>
 				</div>
 			</div>
 

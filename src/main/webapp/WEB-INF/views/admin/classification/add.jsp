@@ -11,7 +11,7 @@
 <div class="am-cf admin-main">
 	<div class="admin-content">
 	<div class="am-cf am-padding">
-    	<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表单</strong> / <small>form</small></div>
+    	<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加分类</strong> </div>
   	</div>
   	
   	<div class="am-tabs am-margin" data-am-tabs>
