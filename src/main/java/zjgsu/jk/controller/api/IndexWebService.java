@@ -117,6 +117,12 @@ public class IndexWebService extends AbstractService {
 		return user;
 	}
 	
+	@RequestMapping(value="/getSonCate.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<Classification> getSonCate(@RequestParam("pid") Long id){
+		return this.classificationRepository.findByParent(this.classificationRepository.findOne(id));
+	}
+	
 	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	//URL：localhost:8080/web-core/api/login?username=XXX&password=XXX

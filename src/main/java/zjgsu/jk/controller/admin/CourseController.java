@@ -23,8 +23,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import zjgsu.jk.dao.ClassificationRepository;
+import zjgsu.jk.dao.CourseClasRepository;
 import zjgsu.jk.dao.CourseRepository;
 import zjgsu.jk.model.Course;
+import zjgsu.jk.model.CourseClas;
 import zjgsu.jk.service.AbstractService;
 import zjgsu.jk.utils.Uptoken;
 
@@ -38,6 +41,11 @@ public class CourseController extends AbstractService {
 	
 	@Autowired
 	private CourseRepository courseRepository;
+	@Autowired
+	private ClassificationRepository claRepository;
+	@Autowired
+	private CourseClasRepository courseClasReposiory;
+
 	
 	@RequestMapping(value = "/courses",method = RequestMethod.GET)
 	public String list(@RequestParam(required = false) Integer page, Model model){
@@ -51,6 +59,7 @@ public class CourseController extends AbstractService {
 	public String add(Model model){
 		model.addAttribute(new Course());
 		model.addAttribute("uptoken", Uptoken.getUptoken());
+		model.addAttribute("cates", this.claRepository.findByParentIsNull());
 		return "/admin/course/add";
 	}
 	
@@ -58,8 +67,11 @@ public class CourseController extends AbstractService {
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public String add(@RequestParam("name")String name,@RequestParam("author")String author,@RequestParam("freeflag")boolean freeflag,
 			@RequestParam("price")BigDecimal price,@RequestParam("level")String level,@RequestParam("introduction")String introduction,
-			@RequestParam("avatar") String avatar,@RequestParam("video") String video,@RequestParam("duration") Double duration) throws IOException{
+			@RequestParam("avatar") String avatar,@RequestParam("video") String video,@RequestParam("duration") Double duration,
+			@RequestParam("faCate")Long parent,@RequestParam("sonCate")Long son) throws IOException{
 			Course course = new Course();
+			CourseClas courseCate1 = new CourseClas();
+			CourseClas courseCate2 = new CourseClas();
 			course.setAuthor(author);
 			course.setName(name);
 			course.setFreeflag(freeflag);
@@ -67,22 +79,17 @@ public class CourseController extends AbstractService {
 			course.setLevel(level);
 			course.setDuration(duration);
 			course.setIntroduction(introduction);
-			/*if(!video.isEmpty())
-			{
-				File f1 = new File(realpath+"/video/"+video.getOriginalFilename());
-				FileUtils.copyInputStreamToFile(video.getInputStream(), f1); //上传文件
-				course.setFilepath("static/video/"+video.getOriginalFilename());
-			}
-			if(!avatar.isEmpty()){
-				File f2 = new File(realpath+"/avatar/"+avatar.getOriginalFilename());
-				FileUtils.copyInputStreamToFile(avatar.getInputStream(), f2); //上传图片
-				course.setAvatar("static/avatar/"+avatar.getOriginalFilename());
-			}*/
 			course.setStudentnum(0);
 			course.setView(0);
 			course.setAvatar(avatar);
 			course.setFilepath(video);
 			courseRepository.save(course);
+			courseCate1.setCourse(course);
+			courseCate1.setClassification(this.claRepository.findById(parent));
+			courseCate2.setCourse(course);
+			courseCate2.setClassification(this.claRepository.findById(son));
+			this.courseClasReposiory.save(courseCate1);
+			this.courseClasReposiory.save(courseCate2);
 			return "redirect:/admin/course/courses";
 	}
 	

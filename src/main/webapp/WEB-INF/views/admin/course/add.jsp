@@ -1,6 +1,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 <head>
@@ -74,7 +75,27 @@
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
 									<textarea class="am-input-sm" name="introduction" rows="5" cols="20"></textarea>
 								</div>
-							</div>							
+							</div>		
+							
+							
+							<div class="am-g am-margin-top">
+								<div class="am-u-sm-4 am-u-md-2 am-text-right">父分类:</div>
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
+									<select id="faCate" name="faCate">
+									<c:forEach items="${cates}" var="cate">
+										<option value="${cate.id }">${cate.name }</option>
+									</c:forEach>
+									</select>
+								</div>
+							</div>	
+							
+							<div class="am-g am-margin-top">
+								<div class="am-u-sm-4 am-u-md-2 am-text-right">子分类:</div>
+								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
+									<select id="sonCate" name="sonCate">
+									</select>
+								</div>
+							</div>					
 							
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">封面图片:</div>
@@ -141,6 +162,24 @@
   				});
   			});
   		});
+		
+		$("#faCate").change(function(){
+			var id = $(this).val();
+			$.ajax({
+				type:"GET",
+				url:"api/getSonCate.json?pid="+id,
+				success:function(data){
+					$("#sonCate").empty();
+					$(data).each(function(){
+						$("#sonCate").append('<option value='+this.id+'>'+this.name+'</option>')
+					});
+				},
+				error:function(){
+					alert("查询失败!");
+				}
+			});
+		});
+		
   	</script>
 </body>
 </html>
