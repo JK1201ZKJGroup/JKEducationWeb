@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="am-cf">
 		<input type="submit" name="log" value="登录" class="am-btn am-btn-primary am-btn-sm am-fl">
 		&nbsp;&nbsp;
-		<a href = "register/admin" class="am-btn am-btn-primary am-btn-sm">注册</a>
+		<a href = "register/user" class="am-btn am-btn-primary am-btn-sm">注册</a>
 		</div>
 	</form>
    <hr>

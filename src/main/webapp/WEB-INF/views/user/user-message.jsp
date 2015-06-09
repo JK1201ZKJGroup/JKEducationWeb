@@ -15,7 +15,7 @@
   <div class="setting-left l">
     <ul class="wrap-boxes">
       <li class="nav-active">
-        <a href="#" class="onactive">个人资料</a>
+        <a href="user/userdetail/show" class="onactive">个人资料</a>
       </li>
       <li>
          <a href="#">头像设置</a>
@@ -33,42 +33,25 @@
 
 
   <div id="setting-profile" style="display: block;" class="setting-wrap setting-profile">
-      <form id="profile">
+      <form id="profile" action="user/userdetail/show" method="post">
           <div class="wlfg-wrap">
               <label class="label-name" for="nick">昵称</label>
 
               <div class="rlf-group">
-                  <input type="text" name="nickname" id="nick" autocomplete="off" data-validate="nick" class="rlf-input rlf-input-nick" value="白粥加上榨菜" placeholder="请输入昵称.">
+                  <input type="text" name="nickname" id="nick" autocomplete="off" data-validate="nick" class="rlf-input rlf-input-nick" value="${user.nickname }" placeholder="请输入昵称.">
                   <p class="rlf-tip-wrap"></p>
               </div>
           </div>
           <div class="wlfg-wrap">
-              <label class="label-name" for="job">职位</label>
+              <label class="label-name" for="email">邮箱</label>
 
               <div class="rlf-group">
-                  <select class="rlf-select" name="job" hidefocus="true" id="job">
-                      <option value="">请选择职位</option>
-                      <option value="1">页面重构设计</option>
-                      <option value="2">交互设计师</option>
-                      <option value="3">产品经理</option>
-                      <option value="4">UI设计师</option>
-                      <option value="5">JS工程师</option>
-                      <option value="6">Web前端工程师</option>
-                      <option value="7">移动开发工程师</option>
-                      <option value="8">PHP开发工程师</option>
-                      <option value="9">软件测试工程师</option>
-                      <option value="12">其它</option>
-                      <option value="10">Linux系统工程师</option>
-                      <option value="11">JAVA开发工程师</option>
-                      <option value="13" selected="selected">学生</option>
-                  </select>
-
+                  <input type="text" name="email" id="email" autocomplete="off" data-validate="nick" class="rlf-input rlf-input-nick" value="${user.email }" placeholder="请输入昵称.">
                   <p class="rlf-tip-wrap"></p>
               </div>
           </div>
           <div class="wlfg-wrap">
               <label class="label-name" for="province-select">城市</label>
-
               <div class="rlf-group profile-address">
                   <select id="province-select" hidefocus="true">
                       <option value="0">选择省份</option>
@@ -152,6 +135,15 @@
               </div>
               <p class="rlf-tip-wrap"></p>
           </div>
+             <div class="wlfg-wrap">
+              <label class="label-name" for="address">具体地址:</label>
+
+              <div class="rlf-group">
+                  <textarea name="address" id="address" cols="30" rows="3" class="textarea">${user.address }</textarea>
+
+                  <p class="rlf-tip-wrap"></p>
+              </div>
+          </div>
           <div class="wlfg-wrap">
               <label class="label-name" for="aboutme">个性签名</label>
 
@@ -163,8 +155,7 @@
           </div>
           <div class="wlfg-wrap">
               <div class="rlf-group">
-                  <span id="profile-submit" hidefocus="true" aria-role="button"
-                        class="rlf-btn-green btn-block profile-btn">保存</span>
+                  <button type="submit" class="rlf-btn-green btn-block profile-btn">保存</button>
               </div>
           </div>
       </form>

@@ -364,24 +364,6 @@
         </ul>
     </div>
 </div>
-<div class="discover-layer">
-    <div class="discover-title">
-        <h3>顶尖合作机构</h3>
-    </div>
-    <div class="discover-corp-list">
-        <ul>
-            <li>
-                <a href="#"
-                   style="background-image:url('static/images/ali.jpg')"></a>
-            </li>
-            <li class="last">
-                <a href="#"
-                   style="background-image:url('static/images/mongo.jpg')"></a>
-            </li>
-
-        </ul>
-    </div>
-</div>
 </div>
 
 </div>

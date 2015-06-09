@@ -35,15 +35,14 @@ public class RegisterController extends AbstractService {
 	private AuthoritiesRepository authoritiesRepository;
 	
 	
-	@RequestMapping(value = "/admin",method = RequestMethod.GET)
+	@RequestMapping(value = "/user",method = RequestMethod.GET)
 	public String register(Model model){
-		System.out.println("in?");
 		model.addAttribute(new Account());
 		return "/register";
 	}
 	
 	@Transactional
-	@RequestMapping(value = "/admin",method = RequestMethod.POST)
+	@RequestMapping(value = "/user",method = RequestMethod.POST)
 	public String register(Account account){
 		if (accountRepository.findByUsername(account.getUsername()) == null) {
 			Account account2 = new Account(account.getUsername(),

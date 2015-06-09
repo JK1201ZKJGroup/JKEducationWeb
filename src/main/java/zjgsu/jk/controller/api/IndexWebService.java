@@ -133,7 +133,6 @@ public class IndexWebService extends AbstractService {
 		{
 			return false;
 		}
-		System.out.println(account);
 		return passwordEncoder.matches(password, account.getPassword());
 	}
 	
