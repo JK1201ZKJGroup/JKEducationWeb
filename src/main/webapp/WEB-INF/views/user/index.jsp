@@ -10,15 +10,15 @@
 <div class="pics_wrap" style="height: 335px;">
     <div id="html5zoo-1">
         <ul class="html5zoo-slides" style="display: none;">
-            <li><a href="http://www.w2bc.com/">
+            <li><a href="#">
                 <img src="static/images/001.jpg" /></a></li>
-            <li><a href="http://www.w2bc.com/">
+            <li><a href="#">
                 <img src="static/images/002.jpg" /></a></li>
-            <li><a href="http://www.w2bc.com/">
+            <li><a href="#">
                 <img src="static/images/003.jpg" /></a></li>
-            <li><a href="http://www.w2bc.com/">
+            <li><a href="#">
                 <img src="static/images/004.jpg" /></a></li>
-            <li><a href="http://www.w2bc.com/">
+            <li><a href="#">
                 <img src="static/images/005.jpg" /></a></li>
         </ul>
     </div>

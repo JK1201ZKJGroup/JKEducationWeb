@@ -27,13 +27,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="static/css/index.css" type="text/css">
 <decorator:head />
 </head>
-<body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
+<body id="List_courseId">
+
 
   <decorator:body />
+  
+
+
 
 <script src="static/js/jquery-2.1.1.min.js"></script>
 <script src="static/js/html5zoo.js"></script>
