@@ -5,23 +5,43 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="static/js/koala.min.1.5.js"></script>
+    <script type="text/javascript">
+        Qfast.add('widgets', { path: "static/js/terminator2.2.min.js", type: "js", requires: ['fx'] });
+        Qfast(false, 'widgets', function () {
+            K.tabs({
+                id: 'decoroll2',//焦点图包裹id
+                conId: "decoimg_a2",//大图域包裹id
+                tabId:"deconum2",//小圆点数字提示id
+                tabTn:"a",
+                conCn: '.decoimg_b2',//大图域配置class
+                auto: 1,//自动播放 1或0
+                effect: 'fade',//效果配置
+                eType: 'mouseover',// 鼠标事件
+                pageBt:true,//是否有按钮切换页码
+                bns: ['.prev', '.next'],//前后按钮配置class
+                interval: 3000// 停顿时间
+            })
+        })
+    </script>
 </head>
 <body>
-<div class="pics_wrap" style="height: 335px;">
-    <div id="html5zoo-1">
-        <ul class="html5zoo-slides" style="display: none;">
-            <li><a href="#">
-                <img src="static/images/001.jpg" /></a></li>
-            <li><a href="#">
-                <img src="static/images/002.jpg" /></a></li>
-            <li><a href="#">
-                <img src="static/images/003.jpg" /></a></li>
-            <li><a href="#">
-                <img src="static/images/004.jpg" /></a></li>
-            <li><a href="#">
-                <img src="static/images/005.jpg" /></a></li>
-        </ul>
+<div id="decoroll2" class="imgfocus">
+
+    <div id="decoimg_a2" class="imgbox">
+        <div class="decoimg_b2"><a href="#"><img src="static/images/002.jpg"></a></div>
+        <div class="decoimg_b2"><a href="#"><img src="static/images/003.jpg"></a></div>
+        <div class="decoimg_b2"><a href="#"><img src="static/images/004.jpg"></a></div>
+        <div class="decoimg_b2"><a href="#"><img src="static/images/005.jpg"></a></div>
     </div>
+
+    <ul id="deconum2" class="num_a2">
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self"></a></li>
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self"></a></li>
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self"></a></li>
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self"></a></li>
+    </ul>
+
 </div>
 
 

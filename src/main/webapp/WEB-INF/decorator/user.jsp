@@ -106,8 +106,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <script src="static/js/jquery-2.1.1.min.js"></script>
-<script src="static/js/html5zoo.js"></script>
-<script src="static/js/lovelygallery.js"></script>
 <script src="static/js/main.js"></script>
 </body>
 
