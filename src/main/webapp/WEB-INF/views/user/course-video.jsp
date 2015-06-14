@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>视屏播放</title>
-<link rel="stylesheet" href="static/css/index.css" type="text/css">
-<link rel="stylesheet" href="static/css/video.css" type="text/css">
+<link rel="stylesheet" href="../../static/css/index.css" type="text/css">
+<link rel="stylesheet" href="../../static/css/video.css" type="text/css">
 </head>
 <body>
 <div id="header" class="course-detail-header">
@@ -19,12 +19,6 @@
       </ul>
       <div id="login-area">
           <ul class="clearfix logined">
-              <li class="my_mp" title="我的经验">
-                  <a href="#" target="_self">
-                      <span class="mp">经验</span>
-                      <span class="mp_num">3736</span>
-                  </a>
-              </li>
               <li class="set_btn">
                   <a id="header-avator" action-type="my_menu" href="#" target="_self">
                       <img src="images/53c0d6ad0001035c01800180-40-40.jpg" width="40" height="40">
@@ -50,11 +44,12 @@
     <div id="J_Box" class="course-video-box">
         <div id="video-box_wrapper" style="position: relative; display: block; width: 1200px; height: 530px;">
             <a id="beforeswfanchor0" href="#" tabindex="-1" title="Flash start" style="border:0;clip:rect(0 0 0 0);display:block;height:1px;margin:-1px;outline:none;overflow:hidden;padding:0;position:absolute;width:1px;"></a>
-            <object type="application/x-shockwave-flash" data="js/flvplayer.swf" width="100%" height="100%" bgcolor="#000000" id="video-box" name="video-box" class="jwswf swfPrev-beforeswfanchor0 swfNext-afterswfanchor0" tabindex="0">
+            <object type="application/x-shockwave-flash" data="${course.filepath }" width="100%" height="100%" bgcolor="#000000" id="video-box" name="video-box" class="jwswf swfPrev-beforeswfanchor0 swfNext-afterswfanchor0" tabindex="0">
                 <param name="allowfullscreen" value="true">
                 <param name="allowscriptaccess" value="always">
                 <param name="seamlesstabbing" value="true"><param name="wmode" value="opaque">
             </object><a id="afterswfanchor0" href="#" tabindex="-1" title="Flash end" style="border:0;clip:rect(0 0 0 0);display:block;height:1px;margin:-1px;outline:none;overflow:hidden;padding:0;position:absolute;width:1px;"></a>
+        <embed src="${course.filepath }" allowFullScreen="true" quality="high" width="100%" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
         </div>
     </div>
 </div>
@@ -84,210 +79,6 @@
                 
             </div>
         </div>                    
-        <div id="plLoadListData">
-            <div class="pl-container">
-                <ul>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="pl-list clearfix">
-                        <div class="pl-list-avator">
-                            <a href="#" target="_blank">
-                                <img width="40" height="40" src="#" title="文欣">
-                            </a>
-                        </div>
-                        <div class="pl-list-main">
-                            <div class="pl-list-nick">
-                                <a href="#" target="_blank">文欣</a>
-                            </div>
-                            <div class="pl-list-content">
-                                感谢老师介绍，受益匪浅，我是从后台转前台的，虽然有些地方不是很理解，还是赞一个！</div>
-                            <div class="pl-list-btm clearfix">
-                                <span class="pl-list-time l">时间: 3天前</span>
-                                <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="32447">
-                                    <i class="icon icon_good"></i>
-                                    <span>0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="page pl-list-page">
-                <span class="disabled_page">首页</span>
-                <span class="disabled_page">上一页</span>
-                <a href="javascript:void(0)" data-page="1" class="active">1</a>
-                <a href="javascript:void(0)" data-page="2">2</a>
-                <a href="javascript:void(0)" data-page="2">下一页</a>
-                <a href="javascript:void(0)" data-page="2">尾页</a>
-            </div>
-        </div>
-    </div>
 </div>
 </div>
 
@@ -324,9 +115,9 @@
         </div>
     </div>
 </div>
-<script src="js/jquery-2.1.1.min.js"></script>
-<script src="js/html5zoo.js"></script>
-<script src="js/lovelygallery.js"></script>
-<script src="js/main.js"></script>
+<script src="../../static/js/jquery-2.1.1.min.js"></script>
+<script src="../../static/js/html5zoo.js"></script>
+<script src="../../static/js/lovelygallery.js"></script>
+<script src="../../static/js/main.js"></script>
 </body>
 </html>

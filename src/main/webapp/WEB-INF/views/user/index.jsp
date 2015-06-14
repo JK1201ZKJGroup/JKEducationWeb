@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,75 +54,25 @@
     </div>
     <div class="course-list discover-list">
         <ul>
+        <c:forEach items="${courses}" var="course">
             <li>
-                <a href="course-view.html">
+                <a href="user/video/${course.id }">
                     <div class="course-list-img">
-                        <img src="static/images/548156b90001d2e406000338-280-160.jpg" alt="">
+                        <img src="${course.avatar}" alt="">
                     </div>
-                    <h5><span>创建Android后端服务之Bmob</span></h5>
+                    <h5><span>${course.introduction }</span></h5>
 
                     <div class="intro">
-                        <p>服务器端对于移动开发者不再是苦恼</p>
-                        <span class="l ">共1章4节</span>
-                        <span class="r">课程时长： 1小时 0分</span>
+                        <p>${course.name }</p>
+                        <span class="r">课程时长：${course.duration }分</span>
                     </div>
                     <div class="tips">
-                        <span class="l">更新完毕</span>
-                        <span class="r">6320人学习</span>
+                     	<span class="l new">上传人：${course.author }</span>
+                        <span class="r">${course.view }次浏览</span>
                     </div>
                 </a>
             </li>
-            <li>
-                <a href="course-view.html">
-                    <div class="course-list-img">
-                        <img src="static/images/53c7718a000103f606000338-280-160.jpg" alt="">
-                    </div>
-                    <h5><span>揭秘PHP模糊查询技术</span></h5>
-                    <div class="intro">
-                        <p>PHP模糊查询分析与实现！</p>
-                        <span class="l ">更新至3-3</span>
-                        <span class="r">课程时长： 1小时43分</span>
-                    </div>
-                    <div class="tips">
-                        <span class="l ">2014-07-18更新</span>
-                        <span class="r">6219人学习</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="course-view.html">
-                    <div class="course-list-img">
-                        <img src="static/images/54c897470001051d06000338-280-160.jpg" alt="">
-                    </div>
-                    <h5><span>Java实现Base64加密</span></h5>
-                    <div class="intro">
-                        <p>亲，想知道Java是怎么实现加密的吗，赶快来加入这门课的学习吧。</p>
-                        <span class="l ">共2章7节</span>
-                        <span class="r">课程时长： 1小时 0分</span>
-                    </div>
-                    <div class="tips">
-                        <span class="l">更新完毕</span>
-                        <span class="r">4836人学习</span>
-                    </div>
-                </a>
-            </li>
-            <li class="last">
-                <a href="course-view.html">
-                    <div class="course-list-img">
-                        <img src="static/images/535ef69a0001791f06000338-280-160.jpg" alt="">
-                    </div>
-                    <h5><span>鼠标悬浮效果</span></h5>
-                    <div class="intro">
-                        <p>通过JS在鼠标移动的时候以淡入淡出的方式出现和隐藏相应的实景图。</p>
-                        <span class="l ">共3章6节</span>
-                        <span class="r">课程时长： 1小时 0分</span>
-                    </div>
-                    <div class="tips">
-                        <span class="l">更新完毕</span>
-                        <span class="r">4282人学习</span>
-                    </div>
-                </a>
-            </li>
+        </c:forEach>
         </ul>
     </div>
 </div>

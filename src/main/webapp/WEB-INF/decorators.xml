@@ -21,7 +21,7 @@
 		<pattern>/404.jsp</pattern>
 		<pattern>/405.jsp</pattern>
 		<pattern>/500.jsp</pattern>
-		<pattern>/user/course-video.jsp</pattern>
+		<pattern>/user/video/**</pattern>
 	</excludes>
 
 	 <decorator name="admin" page="admin.jsp">

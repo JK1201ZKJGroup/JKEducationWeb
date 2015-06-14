@@ -46,12 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span style="display: none;">我的消息</span>
                     </a>
                 </li>
-                <li class="my_mp" title="我的经验">
-                    <a href="#" target="_self">
-                        <span class="mp">经验</span>
-                        <span class="mp_num">3736</span>
-                    </a>
-                </li>
                 <li class="set_btn">
                     <a id="header-avator" action-type="my_menu" href="#" target="_self">
                         <img src="static/images/53c0d6ad0001035c01800180-40-40.jpg" width="40" height="40">

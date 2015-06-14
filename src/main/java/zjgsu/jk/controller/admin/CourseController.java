@@ -97,6 +97,7 @@ public class CourseController extends AbstractService {
 	@RequestMapping(value = "/{id}/delete",method = RequestMethod.GET)
 	public String delete(@PathVariable Long id){
 		Course course = courseRepository.findOne(id);
+		courseClasReposiory.delete(this.courseClasReposiory.findByCourse(course));
 		courseRepository.delete(course);
 		return "redirect:/admin/course/courses";
 	}	
