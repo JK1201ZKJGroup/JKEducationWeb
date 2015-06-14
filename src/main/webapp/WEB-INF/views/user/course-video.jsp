@@ -43,14 +43,15 @@
 <div id="bgarea" class="partTop">
     <div id="J_Box" class="course-video-box">
         <div id="video-box_wrapper" style="position: relative; display: block; width: 1200px; height: 530px;">
-            <video width="1200" height="530" controls="controls">
+            <!--  <video width="1200" height="530" controls="controls">
                 <source src="movie.mp4" type="video/mp4" />
                 <source src="movie.ogg" type="video/ogg" />
                 <source src="movie.webm" type="video/webm" />
                 <object data="movie.mp4" width="1200" height="530">
                     <embed src="movie.swf" width="1200" height="530" />
                 </object>
-            </video>
+            </video>-->
+            <embed src="http://player.youku.com/player.php/Type/Folder/Fid/2698385/Ob/1/sid/XNTM4NzM3MTI=/v.swf" quality="high" width="1200" height="530" align="middle" allowScriptAccess="always" allowFullScreen="true" mode="transparent" type="application/x-shockwave-flash"></embed>
         </div>
     </div>
 </div>
