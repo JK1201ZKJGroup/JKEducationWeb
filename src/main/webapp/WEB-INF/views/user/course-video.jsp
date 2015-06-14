@@ -43,13 +43,14 @@
 <div id="bgarea" class="partTop">
     <div id="J_Box" class="course-video-box">
         <div id="video-box_wrapper" style="position: relative; display: block; width: 1200px; height: 530px;">
-            <a id="beforeswfanchor0" href="#" tabindex="-1" title="Flash start" style="border:0;clip:rect(0 0 0 0);display:block;height:1px;margin:-1px;outline:none;overflow:hidden;padding:0;position:absolute;width:1px;"></a>
-            <object type="application/x-shockwave-flash" data="${course.filepath }" width="100%" height="100%" bgcolor="#000000" id="video-box" name="video-box" class="jwswf swfPrev-beforeswfanchor0 swfNext-afterswfanchor0" tabindex="0">
-                <param name="allowfullscreen" value="true">
-                <param name="allowscriptaccess" value="always">
-                <param name="seamlesstabbing" value="true"><param name="wmode" value="opaque">
-            </object><a id="afterswfanchor0" href="#" tabindex="-1" title="Flash end" style="border:0;clip:rect(0 0 0 0);display:block;height:1px;margin:-1px;outline:none;overflow:hidden;padding:0;position:absolute;width:1px;"></a>
-        <embed src="${course.filepath }" allowFullScreen="true" quality="high" width="100%" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+            <video width="1200" height="530" controls="controls">
+                <source src="movie.mp4" type="video/mp4" />
+                <source src="movie.ogg" type="video/ogg" />
+                <source src="movie.webm" type="video/webm" />
+                <object data="movie.mp4" width="1200" height="530">
+                    <embed src="movie.swf" width="1200" height="530" />
+                </object>
+            </video>
         </div>
     </div>
 </div>
