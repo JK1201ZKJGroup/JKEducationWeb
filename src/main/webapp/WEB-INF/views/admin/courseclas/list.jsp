@@ -57,7 +57,11 @@
          <a class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span> 查看并修改
          </a>
-         <a href="admin/courseclas/${courseclas.id}/delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+         <a href="javascript:
+         if(window.confirm('你确定要删除【${courseclas.course.name }】与【 ${courseclas.classification.name}】之间的关联吗？')){
+         window.location.href = 'admin/courseclas/${courseclas.id}/delete';}
+         else{}" 
+         class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 删除
          </a>
 			</div>

@@ -57,7 +57,11 @@
          <a href="admin/classification/${classification.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span> 查看并修改
          </a>
-         <a href="admin/classification/${classification.id}/delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+         <a href="javascript:
+         if(window.confirm('你确定要删除分类：${classification.name}吗？')){
+         window.location.href = 'admin/classification/${classification.id}/delete';}
+         else{}" 
+         class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 删除
          </a>
 			</div>
