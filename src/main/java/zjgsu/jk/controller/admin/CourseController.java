@@ -67,11 +67,8 @@ public class CourseController extends AbstractService {
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public String add(@RequestParam("name")String name,@RequestParam("author")String author,@RequestParam("freeflag")boolean freeflag,
 			@RequestParam("price")BigDecimal price,@RequestParam("level")String level,@RequestParam("introduction")String introduction,
-			@RequestParam("avatar") String avatar,@RequestParam("video") String video,@RequestParam("duration") Double duration,
-			@RequestParam("faCate")Long parent,@RequestParam("sonCate")Long son) throws IOException{
+			@RequestParam("avatar") String avatar,@RequestParam("video") String video,@RequestParam("duration") Double duration) throws IOException{
 			Course course = new Course();
-			CourseClas courseCate1 = new CourseClas();
-			CourseClas courseCate2 = new CourseClas();
 			course.setAuthor(author);
 			course.setName(name);
 			course.setFreeflag(freeflag);
@@ -84,13 +81,14 @@ public class CourseController extends AbstractService {
 			course.setAvatar(avatar);
 			course.setFilepath(video);
 			courseRepository.save(course);
-			courseCate1.setCourse(course);
-			courseCate1.setClassification(this.claRepository.findById(parent));
-			courseCate2.setCourse(course);
-			courseCate2.setClassification(this.claRepository.findById(son));
-			this.courseClasReposiory.save(courseCate1);
-			this.courseClasReposiory.save(courseCate2);
 			return "redirect:/admin/course/courses";
+	}
+	
+	@RequestMapping(value="/{id}/connect",method=RequestMethod.GET)
+	public String connect(@PathVariable Long id,Model model){
+		model.addAttribute("course",this.courseRepository.findOne(id));
+		model.addAttribute("cates",this.claRepository.findByParentIsNotNull(new PageRequest(0, 10)) );
+		return "/admin/course/connect";
 	}
 	
 	@Transactional

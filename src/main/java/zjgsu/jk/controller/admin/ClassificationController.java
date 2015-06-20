@@ -65,7 +65,10 @@ public class ClassificationController extends AbstractService{
 			model.addAttribute("list",classificationRepository.findByParent(this.classificationRepository.findOne(parentid),
 					new PageRequest(0, 10)));
 		}
-		model.addAttribute("model", this.classificationRepository.findOne(parentid));
+		if(parentid == 0L || parentid == null)
+			model.addAttribute("model",  new Classification());
+		else
+			model.addAttribute("model", this.classificationRepository.findOne(parentid));
 		return "/admin/classification/list";
 	}
 	

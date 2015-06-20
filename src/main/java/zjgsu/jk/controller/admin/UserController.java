@@ -89,6 +89,28 @@ public class UserController extends AbstractService {
 	}
 	
 	@Transactional
+	@RequestMapping(value="/{id}/forbidden",method=RequestMethod.GET)
+	public String forbidden(@PathVariable Long id){
+		Account account = this.accountRepository.findByUser(this.userRepository.findOne(id));
+		if(account.isEnabled() == true){
+			account.setEnabled(false);
+			this.accountRepository.save(account);
+		}
+		return "redirect:/admin/user/users";
+	}
+	
+	@Transactional
+	@RequestMapping(value="/{id}/start",method=RequestMethod.GET)
+	public String start(@PathVariable Long id){
+		Account account = this.accountRepository.findByUser(this.userRepository.findOne(id));
+		if(account.isEnabled() == false){
+			account.setEnabled(true);
+			this.accountRepository.save(account);
+		}
+		return "redirect:/admin/user/users";
+	}
+	
+	@Transactional
 	@RequestMapping(value = "/{id}/update",method = RequestMethod.POST)
 	public String update(@PathVariable Long id,User user1,String password){
 		User user = userRepository.findOne(id);
