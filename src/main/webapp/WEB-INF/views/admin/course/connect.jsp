@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%  
+String path = request.getContextPath();  
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
+%>  
 <!doctype html>
 <html>
 <head>
@@ -34,15 +38,16 @@ font-size:1rem!important;
 				<div class="am-u-sm-6">
 					<input type="text" name="name" class="am-form-field am-input-sm" disabled="disabled" value="${course.name}">
 				</div>
+				<input type="hidden" id="courseId" value="${course.id}">
 				<p style="clear:both"></p>
 			</div>
 			<div class="am-g guanLian">
 			<div class="am-u-sm-offset-2 am-u-sm-5">
 			<form class="am-form-inline" role="form">
 			  <div class="am-form-group am-form-group-sm ">
-			    <input type="text" class="am-form-field am-input-sm forSearch" placeholder="">
+			    <input type="text" class="am-form-field am-input-sm forSearch" placeholder="关键字" id="keyword">
 			  </div>
-			  <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary">搜索</button>
+			  <a href="javascript:void(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary" id="search">搜索分类</a>
 			</form>
 			</div>
 			<div class="zTreeDemoBackground am-u-sm-3">  
@@ -80,6 +85,7 @@ font-size:1rem!important;
 		<script src="static/js/site.js"></script>
 <script>
 	var zTree;  
+	var courseId = $("#courseId").val();
 	var treeNodes;
 	var setting = {
 	   edit: {
@@ -111,7 +117,7 @@ font-size:1rem!important;
 	        async : false,    
 	        type: 'get',  
 	        dataType : "json",  
-	        url: "${contextPath}/admin/biz/"+"/jsonTree",//请求的action路径  
+	        url: "<%=basePath%>api/"+courseId+"/jsonTree",//请求的action路径  
 	        error: function () {//请求失败处理函数  
 	            alert('请求失败');  
 	        },  
@@ -127,17 +133,18 @@ font-size:1rem!important;
 	alert("确定要删除\""+treeNode.name+"\"嘛?");
 	}
 	
-	$(".btn-success").click(function(){
+	$(".am-text-success").click(function(){
 		var claId = $(this).val(); 
 		$.ajax({
 				type:"GET",
-				url:"${contextPath}/admin/biz/"+claId+"/connected?bizid=${model.id}",
+				url:"<%=basePath%>api/"+claId+"/connected?courseid="+courseId,
 				success:function(data){
-					alert(data);
+					alert("关联成功");
 					$("#refresh").click();
 				},
 				error:function(data){
-					alert(data);
+					alert("关联成功");
+					$("#refresh").click();
 				}
 			});
 	});
@@ -157,6 +164,10 @@ font-size:1rem!important;
 			});
 	}
 	
+	 $("#search").click(function (){
+	        var keyword = $("#keyword").val();
+	        window.location.href = "admin/course/"+${course.id}+"/search?keyword="+keyword;
+			}) 
 	</script>
 
 </body>

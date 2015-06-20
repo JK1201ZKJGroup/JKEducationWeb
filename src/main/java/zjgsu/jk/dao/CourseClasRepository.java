@@ -19,7 +19,13 @@ public interface CourseClasRepository extends JpaRepository<CourseClas, Long> {
 
 	public List<CourseClas> findByClassification(Classification classification);
 	
+	public List<CourseClas> findByCourseAndClassificationParentIsNull(Course course);
+	
+	public List<CourseClas> findByCourseAndClassificationParentIsNotNull(Course course);
+	
 	public List<CourseClas> findByCourse(Course course);
+	
+	public List<CourseClas> findByCourseId(Long id);
 	
 	public List<CourseClas> findByCourseAndClassification(Course course,Classification classification);
 }

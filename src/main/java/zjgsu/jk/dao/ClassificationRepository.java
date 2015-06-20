@@ -30,4 +30,6 @@ public interface ClassificationRepository extends JpaRepository<Classification, 
 	public Classification findById(Long id);
 	
 	public Classification findByName(String name);
+	
+	public Page<Classification> findByNameLikeAndParentIsNotNull(String name,Pageable pageable);
 }

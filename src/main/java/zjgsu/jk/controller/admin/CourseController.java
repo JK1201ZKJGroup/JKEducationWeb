@@ -7,13 +7,18 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,18 +26,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import zjgsu.jk.dao.ClassificationRepository;
 import zjgsu.jk.dao.CourseClasRepository;
 import zjgsu.jk.dao.CourseRepository;
+import zjgsu.jk.model.Classification;
 import zjgsu.jk.model.Course;
 import zjgsu.jk.model.CourseClas;
 import zjgsu.jk.service.AbstractService;
 import zjgsu.jk.utils.Uptoken;
 
 /**
- * @author zby
+ * @author zby,zkj
  *
  */
 @Controller
@@ -90,6 +97,61 @@ public class CourseController extends AbstractService {
 		model.addAttribute("cates",this.claRepository.findByParentIsNotNull(new PageRequest(0, 10)) );
 		return "/admin/course/connect";
 	}
+	
+	@RequestMapping(value="/{id}/connected",method=RequestMethod.GET)
+	@Transactional
+	public void connected(@PathVariable(value="id") Long id,@RequestParam(value="courseid")Long courseid){
+		Course course = this.courseRepository.findOne(courseid);
+		Classification category = this.claRepository.findOne(id);
+		try {
+			if(this.courseClasReposiory.findByCourseAndClassification(course, category.getParent())==null){
+				this.courseClasReposiory.save(new CourseClas(course,category.getParent()));
+			}
+			if(this.courseClasReposiory.findByCourseAndClassification(course, category)==null){
+				this.courseClasReposiory.save(new CourseClas(course,category));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/{id}/search",method=RequestMethod.GET)
+	public String search(@PathVariable(value="id") Long id,@RequestParam(value="keyword")String keyword,Model model){
+		model.addAttribute("course", this.courseRepository.findOne(id));
+		model.addAttribute("cates", this.claRepository.findByNameLikeAndParentIsNotNull("%"
+						+ keyword + "%", new PageRequest(0, 10)));
+		return "/admin/course/connect";
+	}
+	
+	@RequestMapping(value="/{id}/jsonTree",method=RequestMethod.GET)
+	public List<Map<String, Object>> jsonTree(@PathVariable("id") Long id) {
+				List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
+				Course course = this.courseRepository.findOne(id);
+				List<CourseClas> listfa = this.courseClasReposiory
+						.findByCourseAndClassificationParentIsNull(course);
+				List<CourseClas> listson = this.courseClasReposiory
+						.findByCourseAndClassificationParentIsNotNull(course);
+				for (CourseClas fa : listfa) {
+					Map<String, Object> father = new HashMap<String, Object>();
+					father.put("id", fa.getClassification().getId());
+					father.put("pId", 0);
+					father.put("ccid", fa.getId());
+					father.put("name", fa.getClassification().getName());
+					father.put("open", true);
+					items.add(father);
+					for (CourseClas son : listson) {
+						if (son.getClassification().getParent().equals(fa.getClassification())) {
+							Map<String, Object> subitem = new HashMap<String, Object>();
+							subitem.put("id", son.getClassification().getId());
+							subitem.put("ccid", son.getId());
+							subitem.put("pId", fa.getClassification().getId());
+							subitem.put("name", son.getClassification().getName());
+							items.add(subitem);
+						}
+					}
+				}
+					return items;
+		}
 	
 	@Transactional
 	@RequestMapping(value = "/{id}/delete",method = RequestMethod.GET)

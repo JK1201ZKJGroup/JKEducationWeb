@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,7 @@ import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,6 +104,57 @@ public class IndexWebService extends AbstractService {
 		}
 		return map; 
 	}
+	
+	@RequestMapping(value="/{id}/connected",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public String connected(@PathVariable(value="id") Long id,@RequestParam(value="courseid")Long courseid){
+		System.out.println("1111");
+		Course course = this.courseRepository.findOne(courseid);
+		Classification category = this.classificationRepository.findOne(id);
+		try {
+			if(this.courseclasRepository.findByCourseAndClassification(course, category.getParent()).isEmpty()){
+				this.courseclasRepository.save(new CourseClas(course,category.getParent()));
+			}
+			if(this.courseclasRepository.findByCourseAndClassification(course, category).isEmpty()){
+				this.courseclasRepository.save(new CourseClas(course,category));
+			}
+			return "关联成功";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "关联失败";
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value="/{id}/jsonTree",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<Map<String, Object>> jsonTree(@PathVariable("id") Long id) {
+		List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
+		Course course = this.courseRepository.findOne(id);
+		List<CourseClas> listfa = this.courseclasRepository
+				.findByCourseAndClassificationParentIsNull(course);
+		List<CourseClas> listson = this.courseclasRepository
+				.findByCourseAndClassificationParentIsNotNull(course);
+		for (CourseClas fa : listfa) {
+			Map<String, Object> father = new HashMap<String, Object>();
+			father.put("id", fa.getClassification().getId());
+			father.put("pId", 0);
+			father.put("ccid", fa.getId());
+			father.put("name", fa.getClassification().getName());
+			father.put("open", true);
+			items.add(father);
+			for (CourseClas son : listson) {
+				if (son.getClassification().getParent().equals(fa.getClassification())) {
+					Map<String, Object> subitem = new HashMap<String, Object>();
+					subitem.put("id", son.getClassification().getId());
+					subitem.put("ccid", son.getId());
+					subitem.put("pId", fa.getClassification().getId());
+					subitem.put("name", son.getClassification().getName());
+					items.add(subitem);
+				}
+			}
+		}
+			return items;
+}
 
 	@RequestMapping(value="/courseinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
