@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a href="admin/courseclas/courseclass"><span class="am-icon-th"></span> 课程分类管理</a></li>
           </ul>
         </li>
-        <li><a href="login.jsp"><span class="am-icon-sign-out"></span> 注销</a></li>
+        <li><a href="/web-core/j_spring_security_logout"><span class="am-icon-sign-out"></span> 注销</a></li>
       </ul>
 
       <div class="am-panel am-panel-default admin-sidebar-panel">

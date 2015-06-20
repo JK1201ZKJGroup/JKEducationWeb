@@ -20,15 +20,15 @@
       <div id="login-area">
           <ul class="clearfix logined">
               <li class="set_btn">
-                  <a id="header-avator" action-type="my_menu" href="#" target="_self">
+                  <a id="header-avator" action-type="my_menu" href="user/userdetail/show" target="_self">
                       <img src="images/53c0d6ad0001035c01800180-40-40.jpg" width="40" height="40">
                       <i class="myspace_remind" style="display: none;"></i>
                       <span style="display: none;">动态提醒</span>
                   </a>
                   <ul id="nav_list">
-                      <li><a id="my_space" href="my-course.html" title="白粥加上榨菜" class="text-ellipsis" target="_self">白粥加上榨菜</a></li>
-                      <li><a id="my_setting" href="user-message.html" target="_self">我的设置</a></li>
-                      <li><a id="my_logout" href="unlogin.html" target="_self">退出</a></li>
+                      <li><a id="my_space" href="user/userdetail/show" title="白粥加上榨菜" class="text-ellipsis" target="_self">白粥加上榨菜</a></li>
+                      <li><a id="my_setting" href="user/userdetail/show" target="_self">我的设置</a></li>
+                      <li><a id="my_logout" href="/web-core/j_spring_security_logout" target="_self">退出</a></li>
                   </ul>
               </li>
           </ul>
