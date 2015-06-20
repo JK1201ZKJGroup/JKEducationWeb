@@ -55,7 +55,7 @@ public class ClassificationController extends AbstractService{
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public String add(@RequestParam String sonname,
 			@RequestParam Long parentid,@RequestParam String parentname,Model model){
-		if(parentname.equals("")){
+		if(parentname.isEmpty()){
 			this.classificationRepository.save(new Classification(sonname,null));
 			model.addAttribute("list", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
 		}
