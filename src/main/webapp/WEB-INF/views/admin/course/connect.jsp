@@ -45,7 +45,7 @@ font-size:1rem!important;
 			  <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary">搜索</button>
 			</form>
 			</div>
-			<div class="zTreeDemoBackground am-u-sm-5">  
+			<div class="zTreeDemoBackground am-u-sm-3">  
 				 
 				<button id="refresh" class="am-btn am-btn-default am-btn-xs am-text-secondary">刷新树</button>
 				<ul id="ztree" class="ztree">
