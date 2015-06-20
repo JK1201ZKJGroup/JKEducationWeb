@@ -8,6 +8,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="static/css/zTreeStyle.css" rel="stylesheet">
 <link href="static/css/site.css" rel="stylesheet">
+<style type="text/css">
+.guanLian{
+margin-left:0!important;
+margin-right:0!important;
+margin-bottom:10px;
+}
+
+.forSearch{
+font-size:1rem!important;
+}
+</style>
 <title>课程分类信息关联</title>
 </head>
 <body>
@@ -18,17 +29,29 @@
 					<strong class="am-text-primary am-text-lg">课程分类信息关联</strong> 
 				</div>
 			</div>
-			<div class="am-form-group">
+			<div class="am-form-group am-form-horizontal">
 				<label for="doc-ipt-3" class="am-u-sm-2 am-form-label">课程名称:</label>
-				<div class="am-u-sm-10">
-					<input type="text" name="name" disabled="disabled" value="${course.name}">
+				<div class="am-u-sm-6">
+					<input type="text" name="name" class="am-form-field am-input-sm" disabled="disabled" value="${course.name}">
 				</div>
+				<p style="clear:both"></p>
 			</div>
-			<div class="zTreeDemoBackground am-u-sm-3">  
-				<ul id="ztree" class="ztree"></ul>  
+			<div class="am-g guanLian">
+			<div class="am-u-sm-offset-2 am-u-sm-5">
+			<form class="am-form-inline" role="form">
+			  <div class="am-form-group am-form-group-sm ">
+			    <input type="text" class="am-form-field am-input-sm forSearch" placeholder="">
+			  </div>
+			  <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary">搜索</button>
+			</form>
+			</div>
+			<div class="zTreeDemoBackground am-u-sm-5">  
+				 
 				<button id="refresh" class="am-btn am-btn-default am-btn-xs am-text-secondary">刷新树</button>
+				<ul id="ztree" class="ztree">
+				</ul> 
 			</div> 
-			
+			</div>
 			<table class="am-table am-table-striped am-table-hover">
 				<thead>
 					<tr>
