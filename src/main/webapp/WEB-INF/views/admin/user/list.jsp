@@ -64,6 +64,12 @@
          <a href="admin/user/${user.id}/delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 删除
          </a>
+         <a href="admin/user/${user.id}/forbidden" onclick="forbidden()" class="am-btn am-btn-default am-btn-xs am-text-warning am-hide-sm-only">
+         	<span class="am-icon-trash-o"></span> 禁用
+         </a>
+         <a href="admin/user/${user.id}/start" onclick="start()" class="am-btn am-btn-default am-btn-xs am-text-success am-hide-sm-only">
+         	<span class="am-icon-trash-o"></span> 启用
+         </a>
 			</div>
         </div>
         </td>
@@ -121,6 +127,15 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+	function forbidden(){
+		alert("该账号禁用成功！");
+	}
+	
+	function start(){
+		alert("该账号启用成功！");
+	}
+</script>
 
 </body>
 </html>
