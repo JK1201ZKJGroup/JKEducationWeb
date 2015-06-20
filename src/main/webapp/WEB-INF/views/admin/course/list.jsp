@@ -82,6 +82,10 @@
 											         class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
 											         	<span class="am-icon-trash-o"></span> 删除
 											         </a>
+											         <a href="admin/course/${course.id}/connect"
+														class="am-btn am-btn-default am-btn-xs am-text-success">
+														<span class="am-icon-pencil-square-o"></span> 关联分类
+													</a>
 												</div>
 											</div>
 										</td>

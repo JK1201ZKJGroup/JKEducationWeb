@@ -69,7 +69,11 @@
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">课程难度:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<input type="text" class="am-input-sm" name="level" />
+									<select name="level" class="am-form-field">
+										<option value="简单">简单</option>
+										<option value="一般">一般</option>
+										<option value="困难">困难</option>
+									</select>
 								</div>
 							</div>
 											
