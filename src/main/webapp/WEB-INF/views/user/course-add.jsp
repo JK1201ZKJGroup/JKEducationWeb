@@ -25,12 +25,6 @@
       <li>
          <a href="user/userdetail/add" class="onactive">课程上传</a>
        </li>
-      <li>
-        <a href="#">修改密码</a>
-      </li>
-      <li>
-        <a href="#">绑定帐号</a>
-      </li>
     </ul>
   </div>
   <div class="setting-right ">

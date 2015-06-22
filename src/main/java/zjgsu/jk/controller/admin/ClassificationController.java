@@ -55,20 +55,26 @@ public class ClassificationController extends AbstractService{
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public String add(@RequestParam String sonname,
 			@RequestParam Long parentid,@RequestParam String parentname,Model model){
-		if(parentname.isEmpty()){
-			this.classificationRepository.save(new Classification(sonname,null));
+		if(classificationRepository.findByName(sonname)==null){
+			if(parentname.isEmpty()){
+				this.classificationRepository.save(new Classification(sonname,null));
+				model.addAttribute("list", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
+			}
+			else {
+				this.classificationRepository.save(new Classification(sonname
+						,this.classificationRepository.findOne(parentid)));
+				model.addAttribute("list",classificationRepository.findByParent(this.classificationRepository.findOne(parentid),
+						new PageRequest(0, 10)));
+			}
+			if(parentid == 0L || parentid == null)
+				model.addAttribute("model",  new Classification());
+			else
+				model.addAttribute("model", this.classificationRepository.findOne(parentid));
+		}
+		else{
+			model.addAttribute("model",  new Classification());
 			model.addAttribute("list", classificationRepository.findByParentIsNull(new PageRequest(0, 10)));
 		}
-		else {
-			this.classificationRepository.save(new Classification(sonname
-					,this.classificationRepository.findOne(parentid)));
-			model.addAttribute("list",classificationRepository.findByParent(this.classificationRepository.findOne(parentid),
-					new PageRequest(0, 10)));
-		}
-		if(parentid == 0L || parentid == null)
-			model.addAttribute("model",  new Classification());
-		else
-			model.addAttribute("model", this.classificationRepository.findOne(parentid));
 		return "/admin/classification/list";
 	}
 	
