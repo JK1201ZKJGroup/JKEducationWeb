@@ -17,6 +17,10 @@
       <li class="nav-active">
         <a href="user/userdetail/show" class="onactive">个人资料</a>
       </li>
+      <li>
+        <a href="user/userdetail/add" class="onactive">课程上传</a>
+      </li>
+      <li>
     </ul>
   </div>
   <div class="setting-right ">
