@@ -34,18 +34,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="page-container" id="nav">
         <div id="logo" class="logo"><a href="index.jsp" target="_self" class="hide-text"></a></div>
         <ul class="nav-item">
-            <li><a href="index.jsp" target="_self">发现课程</a></li>
-            <li><a href="view-source.jsp" target="_self">全部课程</a></li>
-            <li class="nav-item-mycourse"><a href="my-course.jsp" target="_self">我的课程</a></li>
+            <li><a href="user/index" target="_self">发现课程</a></li>
+            <li><a href="user/index" target="_self">全部课程</a></li>
         </ul>
         <div id="login-area">
             <ul class="clearfix logined">
-        	    <li class="my_message">
-                    <a href="#" title="我的消息" target="_self">
-                        <i class="msg_icon" style="display: none;"></i>
-                        <span style="display: none;">我的消息</span>
-                    </a>
-                </li>
                 <li class="set_btn">
                     <a id="header-avator" action-type="my_menu" href="user/userdetail/show" target="_self">
                         <img src="static/images/53c0d6ad0001035c01800180-40-40.jpg" width="40" height="40">
@@ -60,13 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </li>
             </ul>
         </div>
-        <div class="search-area">
-            <form action="#" name="search-form" method="get">
-                <input class="js-input-keyword search-input" placeholder="搜索课程、问答" type="text" autocomplete="off" name="words" value="">
-                <input type="button" class="btn_search js-btn-search">
-                <dl class="search-area-result"></dl>
-            </form>
-        </div>
+        
 	</div>
 </div>
   <decorator:body />

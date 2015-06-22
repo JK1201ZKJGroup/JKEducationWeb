@@ -17,15 +17,6 @@
       <li class="nav-active">
         <a href="user/userdetail/show" class="onactive">个人资料</a>
       </li>
-      <li>
-         <a href="#">头像设置</a>
-       </li>
-      <li>
-        <a href="#">修改密码</a>
-      </li>
-      <li>
-        <a href="#">绑定帐号</a>
-      </li>
     </ul>
   </div>
   <div class="setting-right ">

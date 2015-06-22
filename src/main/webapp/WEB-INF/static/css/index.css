@@ -1993,6 +1993,8 @@ margin-right: 0;
   *display: inline;
 }
 .course-list li .course-list-img img {
+	width:100%;
+	height:auto;
   display: block;
   transition: 1s;
   -moz-transition: 1s;

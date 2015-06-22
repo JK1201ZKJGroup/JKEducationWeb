@@ -12,7 +12,7 @@
 <div id="header" class="course-detail-header">
   <div class="cd-inner clearfix">
       <ul class="l">
-        <li class="nv nv-goback"><a href="#" class="revert l"><i class="icon icon-left"></i>返回</a></li>
+        <li class="nv nv-goback"><a href="javascript:history.go(-1)" class="revert l"><i class="icon icon-left"></i>返回</a></li>
         <li class="nv nv-menu">
           <a href="javascript:;" class="chaptername">课程名称 <i class="icon icon-menu"></i></a>
         </li>
@@ -20,15 +20,15 @@
       <div id="login-area">
           <ul class="clearfix logined">
               <li class="set_btn">
-                  <a id="header-avator" action-type="my_menu" href="user/userdetail/show" target="_self">
-                      <img src="images/53c0d6ad0001035c01800180-40-40.jpg" width="40" height="40">
+                  <a id="header-avator" action-type="my_menu" href="../../user/userdetail/show" target="_self">
+                      <img src="../../static/images/53c0d6ad0001035c01800180-40-40.jpg" width="40" height="40">
                       <i class="myspace_remind" style="display: none;"></i>
                       <span style="display: none;">动态提醒</span>
                   </a>
                   <ul id="nav_list">
-                      <li><a id="my_space" href="user/userdetail/show" title="白粥加上榨菜" class="text-ellipsis" target="_self">白粥加上榨菜</a></li>
-                      <li><a id="my_setting" href="user/userdetail/show" target="_self">我的设置</a></li>
-                      <li><a id="my_logout" href="/web-core/j_spring_security_logout" target="_self">退出</a></li>
+                      <li><a id="my_space" href="../../user/userdetail/show" title="白粥加上榨菜" class="text-ellipsis" target="_self">白粥加上榨菜</a></li>
+                      <li><a id="my_setting" href="../../user/userdetail/show" target="_self">我的设置</a></li>
+                      <li><a id="my_logout" href="../../web-core/j_spring_security_logout" target="_self">退出</a></li>
                   </ul>
               </li>
           </ul>

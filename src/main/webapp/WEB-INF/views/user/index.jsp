@@ -79,7 +79,7 @@
 <div class="discover-layer">
 <div class="discover-title">
     <h3>最新上线课程</h3>
-    <a href="view-source.html">查看更多</a>
+    <a href="#">查看更多</a>
 </div>
 <div class="course-list discover-list">
         <ul>
