@@ -278,14 +278,14 @@ $('.search-input').focus(
     }
 );
 
-$('.wrap-boxes li').click(function(){
-    $(this).siblings().removeClass('nav-active');
-    $(this).siblings().children('a').removeClass('onactive');
-    $(this).addClass('nav-active');
-    $(this).children('a').addClass('onactive');
-    var index=$(this).index();
-    $('.setting-right-wrap .setting-wrap').css('display','none').eq(index).css('display','block');
-});
+//$('.wrap-boxes li').click(function(){
+//    $(this).siblings().removeClass('nav-active');
+//    $(this).siblings().children('a').removeClass('onactive');
+//    $(this).addClass('nav-active');
+//    $(this).children('a').addClass('onactive');
+//    var index=$(this).index();
+//    $('.setting-right-wrap .setting-wrap').css('display','none').eq(index).css('display','block');
+//});
 
 $('.btn-add-follow').click(function(){
     if($('.btn-add-follow').hasClass('btn-remove-follow'))
