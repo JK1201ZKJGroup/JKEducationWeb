@@ -423,6 +423,7 @@
     </div>
 <p style="clear: both"></p>
 </div>
+ <script src="static/js/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
         $('#footer').css('display','none');

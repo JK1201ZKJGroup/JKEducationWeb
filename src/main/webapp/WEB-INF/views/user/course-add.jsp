@@ -149,6 +149,7 @@
 				</div>
                   <p class="rlf-tip-wrap"></p>
               </div>
+              <p style="clear:both;"></p>
           </div>  		 
 
           <div class="wlfg-wrap">
