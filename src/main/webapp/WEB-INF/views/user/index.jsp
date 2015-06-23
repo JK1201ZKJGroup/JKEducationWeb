@@ -48,34 +48,36 @@
 
 <div id="main">
 <div class="container discover-container">
+<c:forEach items="${courses}" var="mapCateCourse">
 <div class="discover-layer">
     <div class="discover-title">
-        <h3>本周精选课程</h3>
+        <h3>${mapCateCourse.key}</h3>
     </div>
     <div class="course-list discover-list">
         <ul>
-        <c:forEach items="${courses}" var="course">
+        	<c:forEach items="${mapCateCourse.value}" var="courseCate">
             <li>
-                <a href="user/video/${course.id }">
+                <a href="user/video/${courseCate.course.id}">
                     <div class="course-list-img">
-                        <img src="${course.avatar}" alt="">
+                        <img src="${courseCate.course.avatar}" alt="">
                     </div>
-                    <h5><span>${course.introduction }</span></h5>
+                    <h5><span>${courseCate.course.introduction }</span></h5>
 
                     <div class="intro">
-                        <p>${course.name }</p>
-                        <span class="r">课程时长：${course.duration }分</span>
+                        <p>${courseCate.course.name }</p>
+                        <span class="r">课程时长：${courseCate.course.duration }分</span>
                     </div>
                     <div class="tips">
-                     	<span class="l new">上传人：${course.author }</span>
-                        <span class="r">${course.view }次浏览</span>
+                     	<span class="l new">上传人：${courseCate.course.author }</span>
+                        <span class="r">${courseCate.course.view }次浏览</span>
                     </div>
                 </a>
             </li>
-        </c:forEach>
+            </c:forEach>
         </ul>
     </div>
 </div>
+ </c:forEach>
 <div class="discover-layer">
 <div class="discover-title">
     <h3>最新上线课程</h3>
