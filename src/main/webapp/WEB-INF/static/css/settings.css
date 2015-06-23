@@ -2,6 +2,7 @@
 body{
 	background-color: #edeff0;
 }
+ul{margin-bottom:0;}
 #main{
 	min-height: 0;
 }

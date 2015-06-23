@@ -8,9 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="static/css/login-regist.css" type="text/css">
+<link rel="stylesheet" href="static/css/bootstrap.css">
 <link rel="stylesheet" href="static/css/settings.css" type="text/css">
 <link rel="stylesheet" href="static/css/highlight.css">
-<link rel="stylesheet" href="static/css/bootstrap.css">
+
 <link rel="stylesheet" href="static/css/main.css">
 </head>
 <body>
@@ -18,10 +19,10 @@
 <div class="wcontainer clearfix">
   <div class="setting-left l">
     <ul class="wrap-boxes">
-      <li class="nav-active">
+      <li>
         <a href="user/userdetail/show" class="onactive">个人资料</a>
       </li>
-      <li>
+      <li class="nav-active">
          <a href="user/userdetail/add" class="onactive">课程上传</a>
        </li>
     </ul>
