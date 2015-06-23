@@ -43,7 +43,8 @@ public class RoleUserIndex extends AbstractService {
 		Map<String,Object> map = new HashMap<String,Object>();
 		List<Classification> cates = this.cateRepository.findByParentIsNull();
 		for(Classification cate:cates){
-			map.put(cate.getName(), this.courseCateRepository.findByClassification(cate));
+			map.put(cate.getName(), this.courseCateRepository
+					.findByClassification(cate).isEmpty()?null:this.courseCateRepository.findByClassification(cate));
 		}
 		model.addAttribute("courses", map);
 		return "/user/index";

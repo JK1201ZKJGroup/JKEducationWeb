@@ -83,27 +83,6 @@
 									<textarea class="am-input-sm" name="introduction" rows="5" cols="20"></textarea>
 								</div>
 							</div>		
-							
-							
-							<div class="am-g am-margin-top">
-								<div class="am-u-sm-4 am-u-md-2 am-text-right">父分类:</div>
-								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<select id="faCate" name="faCate">
-									<c:forEach items="${cates}" var="cate">
-										<option value="${cate.id }">${cate.name }</option>
-									</c:forEach>
-									</select>
-								</div>
-							</div>	
-							
-							<div class="am-g am-margin-top">
-								<div class="am-u-sm-4 am-u-md-2 am-text-right">子分类:</div>
-								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
-									<select id="sonCate" name="sonCate">
-									</select>
-								</div>
-							</div>					
-							
 							<div class="am-g am-margin-top">
 								<div class="am-u-sm-4 am-u-md-2 am-text-right">封面图片:</div>
 								<div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
