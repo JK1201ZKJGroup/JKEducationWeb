@@ -26,6 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="apple-touch-icon-precomposed" href="static/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="static/css/index.css" type="text/css">
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/amazeui.min.js"></script>
+<script src="static/js/app.js"></script>
 <decorator:head />
 </head>
 <body id="List_courseId">

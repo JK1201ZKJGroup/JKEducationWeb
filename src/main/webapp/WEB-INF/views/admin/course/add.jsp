@@ -150,7 +150,7 @@
 					</div>
 				</form>
 				<form id="avatarForm" class="form-horizontal well" enctype="multipart/form-data" style="display:none"></form>
-				<input name="token" type="hidden" form="avatarForm" id="token" value=${uptoken}>
+				<input name="token" type="hidden" form="avatarForm" id="token" value="${uptoken}">
 			</div>
 		</div>
 		</div>
@@ -166,7 +166,6 @@
 <script type="text/javascript" src="static/js/ui.js"></script>
 		<script>
   			$("#imginput").change(function() {
-  				alert("111");
   				$("#avatarForm").ajaxSubmit({
   					url : "http://upload.qiniu.com/",
   					type : "post",

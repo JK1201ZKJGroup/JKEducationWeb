@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,7 +15,6 @@
 </head>
 <body>
 <div id="main">
-
 <div class="wcontainer clearfix">
   <div class="setting-left l">
     <ul class="wrap-boxes">
@@ -158,13 +157,13 @@
           </div>
       </form>
  	  <form id="avatarForm" class="form-horizontal well" enctype="multipart/form-data" style="display:none"></form>
-  	  <input name="token" type="hidden" form="avatarForm" id="token" value=${uptoken}>
+  	  <input name="token" type="hidden" form="avatarForm" id="token" value="${uptoken}">
   </div> 
   </div>
   </div>
   </div>
 </div>
-<script src="static/js/jquery.min.js"></script>
+ <script src="static/js/jquery.min.js"></script>
 <script type="text/javascript" src="static/js/jquery-form.js"></script>
 <script type="text/javascript" src="static/js/qiniu.js"></script>
 <script type="text/javascript" src="static/js/plupload/moxie.js"></script>
@@ -176,7 +175,6 @@
 <script type="text/javascript" src="static/js/ui.js"></script>
 	<script>
 		$("#imginput").change(function() {
-				alert("111");
 				$("#avatarForm").ajaxSubmit({
 					url : "http://upload.qiniu.com/",
 					type : "post",
