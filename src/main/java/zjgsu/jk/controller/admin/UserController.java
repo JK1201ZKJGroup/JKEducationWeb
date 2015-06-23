@@ -43,7 +43,7 @@ public class UserController extends AbstractService {
 	public String list(@RequestParam(required = false) Integer page, Model model){
 		if (page == null)
 			page = 0;
-		model.addAttribute("list",userRepository.findAll(new PageRequest(page, 10)));
+		model.addAttribute("list",accountRepository.findAll(new PageRequest(page, 10)));
 		return "/admin/user/list";
 	}
 	

@@ -45,35 +45,49 @@
               </tr>
           </thead>
            <tbody>
-           <c:forEach items="${list.content}" var="user">
+           <c:forEach items="${list.content}" var="account">
             <tr>
               <td><input type="checkbox" /></td>
-			  <td>${user.id }</td>
-		      <td>${user.phone}</td>
-		      <td><a href="admin/user/${user.id}/update">${user.nickname}</a></td>
-		      <td class="am-hide-sm-only">${user.phone}</td>
-		      <td class="am-hide-sm-only">${user.amount}</td> 
-		      <td class="am-hide-sm-only">${user.email}</td>
-		      <td class="am-hide-sm-only">${user.address}</td>
+			  <td>${account.user.id }</td>
+		      <td>${account.user.phone}</td>
+		      <td><a href="admin/user/${account.user.id}/update">${account.user.nickname}</a></td>
+		      <td class="am-hide-sm-only">${account.user.phone}</td>
+		      <td class="am-hide-sm-only">${account.user.amount}</td> 
+		      <td class="am-hide-sm-only">${account.user.email}</td>
+		      <td class="am-hide-sm-only">${account.user.address}</td>
 		<td>
 		 <div class="am-btn-toolbar">
          	<div class="am-btn-group am-btn-group-xs">
-         <a href="admin/user/${user.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
+         <a href="admin/user/${account.user.id}/update" class="am-btn am-btn-default am-btn-xs am-text-secondary" >
          	<span class="am-icon-pencil-square-o"></span> 查看并修改
          </a>
          <a href="javascript:
-         if(window.confirm('你确定要删除用户：${user.phone}吗？')){
-         window.location.href = 'admin/user/${user.id}/delete';}
+         if(window.confirm('你确定要删除用户：${account.user.phone}吗？')){
+         window.location.href = 'admin/user/${account.user.id}/delete';}
          else{}" 
          class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 删除
          </a>
-         <a href="admin/user/${user.id}/forbidden" onclick="forbidden()" class="am-btn am-btn-default am-btn-xs am-text-warning am-hide-sm-only">
+         <c:if test = "${account.enabled == true}">
+         <a href="admin/user/${account.user.id}/forbidden" onclick="forbidden()" class="am-btn am-btn-default am-btn-xs am-text-warning am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 禁用
          </a>
-         <a href="admin/user/${user.id}/start" onclick="start()" class="am-btn am-btn-default am-btn-xs am-text-success am-hide-sm-only">
+         </c:if>
+         <c:if test="${account.enabled == false}">
+         <a href="admin/user/${account.user.id}/forbidden" onclick="forbidden()" disabled="disabled" class="am-btn am-btn-default am-btn-xs am-text-warning am-hide-sm-only">
+         	<span class="am-icon-trash-o"></span> 禁用
+         </a>
+         </c:if>
+         <c:if test = "${account.enabled == true}">
+         <a href="admin/user/${account.user.id}/start" onclick="start()" disabled="disabled" class="am-btn am-btn-default am-btn-xs am-text-success am-hide-sm-only">
          	<span class="am-icon-trash-o"></span> 启用
          </a>
+         </c:if>
+         <c:if test = "${account.enabled == false}">
+         <a href="admin/user/${account.user.id}/start" onclick="start()" class="am-btn am-btn-default am-btn-xs am-text-success am-hide-sm-only">
+         	<span class="am-icon-trash-o"></span> 启用
+         </a>
+         </c:if>
 			</div>
         </div>
         </td>
