@@ -71,14 +71,13 @@ public class IndexWebService extends AbstractService {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private SendCodeRepository sendCodeRepository;
-	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
-	@RequestMapping(value="/user.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public  List<User> getUser(){
-		System.out.println("hahah");
-		return this.userRepository.findAll();
-	}
-	
+	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit"; //短信注册码（短信触发平台URL）
+
+	/**
+	 * URL：localhost:8080/web-core/api/childclassification?id=XXX
+	 * 返回给安卓端某个分类下所包含的课程信息
+	 *
+	 */
 	@RequestMapping(value="/childclassification.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HashMap<String, Object> getClassificationCourse(@RequestParam("id") Long id){
@@ -106,6 +105,7 @@ public class IndexWebService extends AbstractService {
 	@ResponseBody
 	@Transactional
 	public String connected(@PathVariable(value="id") Long id,@RequestParam(value="courseid")Long courseid){
+		System.out.println("1111");
 		Course course = this.courseRepository.findOne(courseid);
 		Classification category = this.classificationRepository.findOne(id);
 		try {
@@ -121,40 +121,6 @@ public class IndexWebService extends AbstractService {
 			return "关联失败";
 		}
 	}
-	
-	@Transactional
-	@ResponseBody
-	@RequestMapping(value="/{id}/disconnect",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public String disconnect(@PathVariable(value="id") Long id) {
-		System.out.println(id);
-		 CourseClas bizClas = this.courseclasRepository.findOne(id);
-		 Course biz = bizClas.getCourse();
-		 Classification parentCla = bizClas.getClassification().getParent();
-		 Classification selfCla = bizClas.getClassification();
-		 try {
-		 if(bizClas.getClassification().getParent() ==null){
-		 this.courseclasRepository.delete(this.courseclasRepository
-		 .findByCourseAndClassificationParent(biz, selfCla));
-		 this.courseclasRepository.delete(id);
-		 }
-		 else if(this.courseclasRepository.findByCourseAndClassificationParent(biz,
-		 parentCla).size()==1){
-		 this.courseclasRepository.delete(id);
-		 this.courseclasRepository.delete(this.courseclasRepository
-		 .findByCourseAndClassification(biz, parentCla));
-		 }
-		 else{
-		 this.courseclasRepository.delete(id);
-		 }
-		   return "删除成功";
-		 } catch (Exception e) {
-		 e.printStackTrace();
-		 return "删除失败";
-		 }
-
-	}
-	
-	
 	@ResponseBody
 	@RequestMapping(value="/{id}/jsonTree",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Map<String, Object>> jsonTree(@PathVariable("id") Long id) {
@@ -186,13 +152,23 @@ public class IndexWebService extends AbstractService {
 			return items;
 }
 
+	/**
+	 * URL：localhost:8080/web-core/api/courseinfo?id=XXX
+	 * 返回给安卓端对应课程id包含的课程信息 
+	 *
+	 */
 	@RequestMapping(value="/courseinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Course getCourseInfo(@RequestParam("id") Long id){
 		Course course = this.courseRepository.findById(id);
 		return course;
 	}
-	
+
+	/**
+	 * URL：localhost:8080/web-core/api/userinfo?id=XXX
+	 * 返回给安卓端对应用户id所包含的用户信息
+	 *
+	 */
 	@RequestMapping(value="/userinfo.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public User getUserInfo(@RequestParam("id") Long id){
@@ -200,16 +176,20 @@ public class IndexWebService extends AbstractService {
 		return user;
 	}
 	
-	
 	@RequestMapping(value="/getSonCate.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Classification> getSonCate(@RequestParam("pid") Long id){
 		return this.classificationRepository.findByParent(this.classificationRepository.findOne(id));
 	}
-	
+
+
+	/**
+	 * URL：localhost:8080/web-core/api/login?username=XXX&password=XXX
+	 * 对安卓端的用户登陆机制进行验证
+	 * 输入参数包括用户名、密码，验证结束后返回参数为true、false
+	 */
 	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	//URL：localhost:8080/web-core/api/login?username=XXX&password=XXX
 	public boolean login(@RequestParam("username") String username
 			,@RequestParam("password")String password){
 		Account  account = this.accountRepository.findByUsername(username);
@@ -219,17 +199,23 @@ public class IndexWebService extends AbstractService {
 		}
 		return passwordEncoder.matches(password, account.getPassword());
 	}
-	
+
+	/**
+	 * URL：localhost:8080/web-core/api/mobile_code?username=XXX&sendType=XXX	
+	 * 在安卓端进行注册或忘记密码操作时，需要用到第三方的短信验证码发送
+	 * 输入参数包括用户名、SendType，通过判断是否满足对应的要求，最后返回参数为true、false
+	 * private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit"; //短信注册码（短信触发平台URL）
+	 */	
 	@RequestMapping(value="/mobile_code",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	//URL：localhost:8080/web-core/api/mobile_code?username=XXX	
 	public boolean mobile_code(@RequestParam("username") String username,@RequestParam("sendType") String sendType,
 			HttpServletRequest request){
 		boolean switchFlag = true;
 		System.out.println(sendType);
+		//判断此时安卓端传入的参数sendType为多少，1为注册机制、0为忘记密码机制
 		if(sendType.equals("1")){	//注册机制
-			if(this.accountRepository.findByUsername(username)==null)			{
+			if(this.accountRepository.findByUsername(username)==null){//查找该用户名是否为空
 				switchFlag = true;
 			}
 			else {
@@ -237,23 +223,22 @@ public class IndexWebService extends AbstractService {
 			}			
 		}
 		else{	//忘记密码	
-			if(this.accountRepository.findByUsername(username)==null)			{
+			if(this.accountRepository.findByUsername(username)==null){//查找该用户名是否为空
 				switchFlag = false;
 			}
 			else {
 				switchFlag = true;
 			}		}
-		if(switchFlag == true){
+		if(switchFlag == true){//若上述判断最后没有错误，进行短信验证码发送
 		HttpClient client = new HttpClient(); 
 		PostMethod method = new PostMethod(Url); 
 			
-		//client.getParams().setContentCharset("GBK");		
 		client.getParams().setContentCharset("UTF-8");
 		method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
 
 		
-		int mobile_code = (int)((Math.random()*9+1)*1000);
-		if(this.sendCodeRepository.findByUsername(username) == null)
+		int mobile_code = (int)((Math.random()*9+1)*1000);//生成随机四位数字验证码
+		if(this.sendCodeRepository.findByUsername(username) == null) //在MySQL的sendCode表中生成对应的数据包括手机号和发送的验证码
 		{
 			SendCode sendCode = new SendCode(mobile_code,username);
 			this.sendCodeRepository.save(sendCode);
@@ -270,15 +255,14 @@ public class IndexWebService extends AbstractService {
 		NameValuePair[] data = {
 			    new NameValuePair("account", "cf_zhengxi"), 
 			    new NameValuePair("password", "123456"),
-			    //new NameValuePair("password", util.StringUtil.MD5Encode("")),
 			    new NameValuePair("mobile", username), 
 			    new NameValuePair("content", content),
-		};
+		}; //构建对应的短信，包括第三方平台的登陆帐号account、登录密码password、发送到的手机号mobile和规定的短信模版content
 		
 		method.setRequestBody(data);		
 		
 		
-		try {
+		try { //上传数据，发送短信
 			client.executeMethod(method);	
 			
 			String SubmitResult =method.getResponseBodyAsString();
@@ -298,19 +282,16 @@ public class IndexWebService extends AbstractService {
 			System.out.println(msg);
 			System.out.println(smsid);
 						
-			 if("2".equals(code)){
+			 if("2".equals(code)){ //接受返回值code，若为2表示发送成功
 				System.out.println("发送成功");
 				request.getSession().setAttribute(username+"code", mobile_code);
 			}
 			
 		} catch (HttpException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("返回来true");
@@ -322,24 +303,27 @@ public class IndexWebService extends AbstractService {
 		return false;
 	}
 }
-	
+
+	/**
+	 * URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&mobile_code=XXX
+	 * 对安卓端的用户注册机制进行验证
+	 * 输入参数包括用户名、密码、注册码，验证结束后返回参数为true、false
+	 */
 	@RequestMapping(value="/register",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@ResponseBody
-	//URL：localhost:8080/web-core/api/register?username=XXX&password=XXX&mobile_code=XXX	
 	public boolean register(@RequestParam("username") String username,@RequestParam("password")String password,
 			@RequestParam("mobile_code")int mobile_code){
 		SendCode sendCode = this.sendCodeRepository.findByUsername(username);
-//		String test_code = Integer.toString(1234);
-		if(mobile_code ==sendCode.getCode())
+		if(mobile_code ==sendCode.getCode()) //判断传入的验证码是否匹配
 		{
-			User user = new User();
+			User user = new User(); //生成一个新的User类
 			user.setPhone(username);
 			System.out.println(user);
-			Account account = new Account(user.getPhone(),
+			Account account = new Account(user.getPhone(), //生成对应的Account类
 					passwordEncoder.encode(password), true, user);
 			System.out.println(account);
-			Authorities authorities = new Authorities(account, "ROLE_USER");
+			Authorities authorities = new Authorities(account, "ROLE_USER"); //生成对应的权限为"ROLE_USER"的Authorities类
 			System.out.println(authorities);
 			userRepository.save(user);
 			accountRepository.save(account);
@@ -350,44 +334,28 @@ public class IndexWebService extends AbstractService {
 		{
 			return false;
 		}	
-//		return passwordEncoder.matches(password, account.getPassword());
 	}
 	
-	@RequestMapping(value="/forget_testcode",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@ResponseBody
-	//URL：localhost:8080/web-core/api/forget_testcode?username=XXX&mobile_code=XXX	
-	public boolean forget_testcode(@RequestParam("username") String username,
-			@RequestParam("mobile_code") int mobile_code){
-		System.out.println(username);
-		System.out.println(mobile_code);
-		SendCode sendCode = this.sendCodeRepository.findByUsername(username);
-		if(mobile_code ==sendCode.getCode())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
+	/**
+	 * URL：localhost:8080/web-core/api/forget_password?username=XXX&password=XXX&mobile_code=XXX
+	 * 对安卓端的用户忘记密码进行验证
+	 * 输入参数包括用户名、密码、注册码，验证结束后返回参数为true、false
+	 */	
 	@RequestMapping(value="/forget_password",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@ResponseBody
-	//URL：localhost:8080/web-core/api/forget_password?username=XXX&password=XXX&mobile_code=XXX	
 	public boolean forget_password(@RequestParam("username") String username,@RequestParam("password")String password,
 			@RequestParam("mobile_code") int mobile_code){
 		System.out.println(username);
 		System.out.println(password);
-		SendCode sendCode = this.sendCodeRepository.findByUsername(username);
+		SendCode sendCode = this.sendCodeRepository.findByUsername(username);//在sendCode表中找到发送到该手机号码对应的验证码
 		System.out.println(sendCode);
 		System.out.println(sendCode.getCode());
-		if(mobile_code ==sendCode.getCode())
+		if(mobile_code ==sendCode.getCode()) //判断验证码是否匹配
 		{
 			Account account = this.accountRepository.findByUsername(username);
 			System.out.println(account);
-			account.setPassword(passwordEncoder.encode(password));
+			account.setPassword(passwordEncoder.encode(password)); //若匹配，修改Account表中该用户对应的密码为输入的新密码
 			accountRepository.save(account);
 		}
 		else

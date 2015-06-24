@@ -53,7 +53,7 @@ public class CourseController extends AbstractService {
 	@Autowired
 	private CourseClasRepository courseClasReposiory;
 
-	
+	//课程管理界面分页显示出当前的所有课程信息
 	@RequestMapping(value = "/courses",method = RequestMethod.GET)
 	public String list(@RequestParam(required = false) Integer page, Model model){
 		if (page == null)
@@ -62,6 +62,7 @@ public class CourseController extends AbstractService {
 		return "/admin/course/list";
 	}
 	
+	//课程管理界面添加课程
 	@RequestMapping(value = "/add",method = RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute(new Course());
@@ -153,6 +154,7 @@ public class CourseController extends AbstractService {
 					return items;
 		}
 	
+	//课程管理界面删除某一id的课程信息
 	@Transactional
 	@RequestMapping(value = "/{id}/delete",method = RequestMethod.GET)
 	public String delete(@PathVariable Long id){
@@ -165,18 +167,11 @@ public class CourseController extends AbstractService {
 	@RequestMapping(value = "/{id}/update",method = RequestMethod.GET)
 	public String update(Model model,@PathVariable Long id){
 		Course course = courseRepository.findOne(id);
-//		CourseClas courseclas = new CourseClas();
-//		courseclasRepository.save(courseclas);
-//		courseclas.setCourse(course);
-//		System.out.println(courseclas.getClassification());
-//		if(courseclas.getClassification()==null)
-//			courseclas.getClassification().setName(null);
-//		System.out.println(courseclas.getClassification().getName());
 		model.addAttribute(course);
-//		model.addAttribute("classification",courseclas.getClassification());
 		return "/admin/course/update";
 	}
 	
+	//课程管理界面更新某一id的课程信息
 	@Transactional
 	@RequestMapping(value = "/{id}/update",method = RequestMethod.POST)
 	public String update(@PathVariable Long id,Course course1,MultipartFile attach1,MultipartFile attach2, HttpServletRequest req, HttpServletRequest arg0)throws IOException{
@@ -191,8 +186,6 @@ public class CourseController extends AbstractService {
 		course.setIntroduction(course1.getIntroduction());
 		course.setLevel(course1.getLevel());
 		String realpath = "D:/eclipse_workspace/JKEducationWeb/src/main/resources/upload";
-//		String realpath = req.getSession().getServletContext().getRealPath("/resources/upload");
-//		System.out.println(realpath);
 		if(!attach1.isEmpty())
 		{
 			File f1 = new File(realpath+"/video"+"/"+attach1.getOriginalFilename());
@@ -206,9 +199,6 @@ public class CourseController extends AbstractService {
 			course1.setAvatar(realpath+"/image"+"/"+attach2.getOriginalFilename());
 			course.setAvatar(course1.getAvatar());
 		}
-//		CourseClas courseclas = new CourseClas();
-//		courseclas.getCourse().setName(course1.getName());
-//		courseclas.getClassification().setName(arg0.getParameter("classificationname"));
 		return "redirect:/admin/course/courses";
 	}
 
