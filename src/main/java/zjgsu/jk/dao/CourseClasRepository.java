@@ -27,5 +27,7 @@ public interface CourseClasRepository extends JpaRepository<CourseClas, Long> {
 	
 	public List<CourseClas> findByCourseId(Long id);
 	
+	public List<CourseClas> findByCourseAndClassificationParent(Course course,Classification cate);
+	
 	public List<CourseClas> findByCourseAndClassification(Course course,Classification classification);
 }

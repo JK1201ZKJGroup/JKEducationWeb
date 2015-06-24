@@ -5,13 +5,11 @@ package zjgsu.jk.controller.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -23,7 +21,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,7 +106,6 @@ public class IndexWebService extends AbstractService {
 	@ResponseBody
 	@Transactional
 	public String connected(@PathVariable(value="id") Long id,@RequestParam(value="courseid")Long courseid){
-		System.out.println("1111");
 		Course course = this.courseRepository.findOne(courseid);
 		Classification category = this.classificationRepository.findOne(id);
 		try {
@@ -125,6 +121,40 @@ public class IndexWebService extends AbstractService {
 			return "关联失败";
 		}
 	}
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping(value="/{id}/disconnect",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String disconnect(@PathVariable(value="id") Long id) {
+		System.out.println(id);
+		 CourseClas bizClas = this.courseclasRepository.findOne(id);
+		 Course biz = bizClas.getCourse();
+		 Classification parentCla = bizClas.getClassification().getParent();
+		 Classification selfCla = bizClas.getClassification();
+		 try {
+		 if(bizClas.getClassification().getParent() ==null){
+		 this.courseclasRepository.delete(this.courseclasRepository
+		 .findByCourseAndClassificationParent(biz, selfCla));
+		 this.courseclasRepository.delete(id);
+		 }
+		 else if(this.courseclasRepository.findByCourseAndClassificationParent(biz,
+		 parentCla).size()==1){
+		 this.courseclasRepository.delete(id);
+		 this.courseclasRepository.delete(this.courseclasRepository
+		 .findByCourseAndClassification(biz, parentCla));
+		 }
+		 else{
+		 this.courseclasRepository.delete(id);
+		 }
+		   return "删除成功";
+		 } catch (Exception e) {
+		 e.printStackTrace();
+		 return "删除失败";
+		 }
+
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/{id}/jsonTree",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Map<String, Object>> jsonTree(@PathVariable("id") Long id) {
@@ -169,6 +199,7 @@ public class IndexWebService extends AbstractService {
 		User user = this.userRepository.findById(id);
 		return user;
 	}
+	
 	
 	@RequestMapping(value="/getSonCate.json",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

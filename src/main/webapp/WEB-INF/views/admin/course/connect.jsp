@@ -137,7 +137,7 @@ font-size:1rem!important;
 		var claId = $(this).val(); 
 		$.ajax({
 				type:"GET",
-				url:"<%=basePath%>api/"+claId+"/connected?courseid="+courseId,
+				url:"api/"+claId+"/connected?courseid="+courseId,
 				success:function(data){
 					alert("关联成功");
 					$("#refresh").click();
@@ -153,13 +153,13 @@ font-size:1rem!important;
 	function onRemove(event, treeId, treeNode){
 			$.ajax({
 				type:"GET",
-				url:"${contextPath}/admin/biz/"+treeNode.bcid+"/disconnect",
+				url:"api/"+treeNode.ccid+"/disconnect",
 				success:function(data){
-					alert(data);
+					alert("删除成功");
 					$("#refresh").click();
 				},
 				error:function(data){
-					alert(data);
+					alert("删除成功");
 				}
 			});
 	}

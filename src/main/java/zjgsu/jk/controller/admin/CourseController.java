@@ -135,7 +135,7 @@ public class CourseController extends AbstractService {
 					Map<String, Object> father = new HashMap<String, Object>();
 					father.put("id", fa.getClassification().getId());
 					father.put("pId", 0);
-					father.put("ccid", fa.getId());
+					father.put("bcid", fa.getId());
 					father.put("name", fa.getClassification().getName());
 					father.put("open", true);
 					items.add(father);
@@ -143,7 +143,7 @@ public class CourseController extends AbstractService {
 						if (son.getClassification().getParent().equals(fa.getClassification())) {
 							Map<String, Object> subitem = new HashMap<String, Object>();
 							subitem.put("id", son.getClassification().getId());
-							subitem.put("ccid", son.getId());
+							subitem.put("bcid", son.getId());
 							subitem.put("pId", fa.getClassification().getId());
 							subitem.put("name", son.getClassification().getName());
 							items.add(subitem);
